@@ -8,8 +8,15 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { useDispatch } from "react-redux";
+import { logout } from "../../Auth/auth.action";
 
 const Topbar = () => {
+  const dispatch = useDispatch();
+  const lout = () => {
+    dispatch(logout());
+    console.log("by");
+  };
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
@@ -41,7 +48,7 @@ const Topbar = () => {
         <IconButton>
           <SettingsOutlinedIcon />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={lout}>
           <PersonOutlinedIcon />
         </IconButton>
         </Box>
