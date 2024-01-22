@@ -16,21 +16,16 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @PostConstruct
-    public void initAdminAndAssistent(){
+    public void initAdmin(){
         UserInfo admin =new UserInfo();
         admin.setId(1);
-        admin.setName("admin");
+        admin.setFirstname("admin");
+        admin.setLastname("admin");
         admin.setEmail("admin@admin");
         admin.setRoles("ROLE_ADMIN");
         admin.setPassword(passwordEncoder.encode("1234"));
         userrepository.save(admin);
-        UserInfo assistent =new UserInfo();
-        assistent.setId(2);
-        assistent.setName("assistent");
-        assistent.setEmail("assistent@assistent");
-        assistent.setRoles("ROLE_ASSISTENT");
-        assistent.setPassword(passwordEncoder.encode("1234"));
-        userrepository.save(assistent);
+        
     }
   public String addFormateurIntern(Formateur formateurInfo) {
 	  formateurInfo.setPassword(passwordEncoder.encode(formateurInfo.getPassword()));

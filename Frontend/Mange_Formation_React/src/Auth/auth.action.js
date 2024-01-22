@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL } from "../config/api";
-import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from "./auth.actionType";
+import { CURRENT_USER, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT } from "./auth.actionType";
 
 export const loginUserAction = (loginData) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
@@ -9,8 +9,9 @@ export const loginUserAction = (loginData) => async (dispatch) => {
       `${API_BASE_URL}/users/authenticate`,
       loginData.data
     );
-    if (data) {
-      localStorage.setItem("jwt", data);
+    if (data.token) {
+        const encodedData = btoa(JSON.stringify(data));
+        localStorage.setItem("user", encodedData);
     }
     dispatch({ type: LOGIN_SUCCESS, payload: data });
     console.log("login success",data)
@@ -20,6 +21,12 @@ export const loginUserAction = (loginData) => async (dispatch) => {
   }
 };
 export const logout=()=>async (dispatch) =>{
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("user");
     dispatch({ type: LOGOUT });
   }
+export const getCurrentUser =()=> async(dispatch) => {
+    const storedData = localStorage.getItem("user");
+    const decodedData = storedData ? JSON.parse(atob(storedData)) : null;
+    dispatch({ type: CURRENT_USER, payload: decodedData });  
+  };
+  

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Grid,
   Box,
@@ -12,7 +12,7 @@ import {
   Stack,
 } from "@mui/material";
 import Sousbg from "../../Assets/sousbg.png";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
@@ -43,22 +43,20 @@ const center = {
 
 const initialValues = { email: "", password: "" };
 
-const validationSchema = {
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
-    .min(4, "Password must be at least 4 characters")
-    .required("Password is required"),
-};
+const validationSchema = Yup.object({
+  username: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().required("Password is required"),
+});
 
 export const Login = () => {
-  const [formValue, setFormValue] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSubmit = (values) => {
     dispatch(loginUserAction({ data: values }));
+    navigate("/*");
   };
 
-
-  const navigate = useNavigate();
+  
 
   return (
     <div
@@ -104,12 +102,12 @@ export const Login = () => {
                       Sign In
                     </Typography>
                   </Box>
-            
+
                   <Box height={35} />
                   <Formik
                     onSubmit={handleSubmit}
                     initialValues={initialValues}
-                    //validationSchema={validationSchema}
+                    validationSchema={validationSchema}
                   >
                     <Form>
                       <Grid container spacing={1}>
@@ -117,15 +115,18 @@ export const Login = () => {
                           <Field
                             as={TextField}
                             fullWidth
-                            name="username"
-                            placeholder="Email"
-                            type="text"
+                            name="username"  // Fix: Change "username" to "email"
+                            placeholder="Email *"
+                            type="email"
                             variant="outlined"
                           />
                           <ErrorMessage
-                            name="email"
+                            name="username"
                             component={"div"}
                             className="text-red-500"
+                            style={{
+                            color:"#ff0000"
+                            }}
                           />
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
@@ -133,7 +134,7 @@ export const Login = () => {
                             as={TextField}
                             fullWidth
                             name="password"
-                            placeholder="Password"
+                            placeholder="Password *"
                             type="password"
                             variant="outlined"
                           />
@@ -141,6 +142,9 @@ export const Login = () => {
                             name="password"
                             component={"div"}
                             className="text-red-500"
+                            style={{
+                              color:"#ff0000"
+                              }}
                           />
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
