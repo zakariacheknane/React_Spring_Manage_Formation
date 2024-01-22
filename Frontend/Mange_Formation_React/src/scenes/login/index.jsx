@@ -53,7 +53,7 @@ export const Login = () => {
   const navigate = useNavigate();
   const handleSubmit = (values) => {
     dispatch(loginUserAction({ data: values }));
-    navigate("/*");
+    navigate("/");
   };
 
   

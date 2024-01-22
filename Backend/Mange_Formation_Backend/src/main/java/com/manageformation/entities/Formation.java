@@ -16,10 +16,15 @@ public class Formation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	private String name_formation;
 	private int nb_hours;
-	private String name_form;
 	private double cost;
-	private Date date_form;
-	private String programme;
 	private String objectif; 
+	private String programme;
+	private Date dateStart;
+	private Date dateEnd;
+	private String city;
+	private String category;
+	
+	
 }

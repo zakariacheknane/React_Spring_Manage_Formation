@@ -37,7 +37,7 @@ function App() {
           }
         />
         
-         {isAdmin ? (
+         {isAdmin || isAssistent ? (
         <Route
           path="/*"
           element={
@@ -66,6 +66,7 @@ function App() {
             element={<Navigate to="/login" />}
           />
         )}
+        
       </Routes>
     );
   }
