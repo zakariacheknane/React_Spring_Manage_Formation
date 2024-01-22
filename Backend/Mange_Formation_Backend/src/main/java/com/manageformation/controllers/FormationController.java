@@ -23,11 +23,12 @@ public class FormationController {
 	@Autowired
 	private FormationService formationService;
 	@PostMapping("/add")
-	 @PreAuthorize("hasAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public Formation addFormation(@RequestBody Formation formationInfo) {
 		return formationService.addFormation(formationInfo);
 	}
 	@PutMapping("/update")
+	 @PreAuthorize("hasAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public Formation updateFormation(@RequestBody Formation formationInfo) {
 		return formationService.updateFormation(formationInfo);
 	}

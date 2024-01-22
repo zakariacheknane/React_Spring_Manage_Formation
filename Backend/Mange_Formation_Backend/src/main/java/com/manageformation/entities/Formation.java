@@ -1,5 +1,5 @@
 package com.manageformation.entities;
-import java.util.Date;
+import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,8 +21,6 @@ public class Formation {
 	private double cost;
 	private String objectif; 
 	private String programme;
-	private Date dateStart;
-	private Date dateEnd;
 	private String city;
 	private String category;
 	

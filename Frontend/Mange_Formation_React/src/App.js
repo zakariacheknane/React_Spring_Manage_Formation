@@ -7,6 +7,7 @@ import Dashboard from "./scenes/dashboard";
 import Login from "./scenes/login";
 import ForgotPassword from "./scenes/ForgotPassword";
 import { useUserContext } from "./Context/UserContext";
+import Formation from "./scenes/formation";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -51,6 +52,7 @@ function App() {
                       <Topbar />
                       <Routes>
                         <Route path="/" element={<Dashboard />} />
+                        <Route path="/formation" element={<Formation />} />
                       </Routes>
                     </main>
                   </div>
