@@ -1,5 +1,6 @@
 package com.manageformation.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,9 @@ public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private String firstname;
+    private String lastname;
+    @Column(unique = true)
     private String email;
     private String password;
     private String roles;
