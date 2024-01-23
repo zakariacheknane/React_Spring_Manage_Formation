@@ -7,6 +7,7 @@ import Dashboard from "./scenes/dashboard";
 import Login from "./scenes/login";
 import ForgotPassword from "./scenes/ForgotPassword";
 import { useUserContext } from "./Context/UserContext";
+import Formation from "./scenes/formation";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -15,12 +16,13 @@ function App() {
   const isAssistent = isUserAssistent();
     return (
       <Routes>
+        
         <Route
           path="/login"
           element={
             <div className="app">
               <main className="content">
-                <Topbar />
+              
                 <Login />
               </main>
             </div>
@@ -37,7 +39,7 @@ function App() {
           }
         />
         
-         {isAdmin ? (
+         {isAdmin || isAssistent ? (
         <Route
           path="/*"
           element={
@@ -51,6 +53,7 @@ function App() {
                       <Topbar />
                       <Routes>
                         <Route path="/" element={<Dashboard />} />
+                        <Route path="/formation" element={<Formation />} />
                       </Routes>
                     </main>
                   </div>
@@ -66,6 +69,7 @@ function App() {
             element={<Navigate to="/login" />}
           />
         )}
+        
       </Routes>
     );
   }

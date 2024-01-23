@@ -1,5 +1,5 @@
 package com.manageformation.entities;
-import java.util.Date;
+import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,10 +16,13 @@ public class Formation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	private String name_formation;
 	private int nb_hours;
-	private String name_form;
 	private double cost;
-	private Date date_form;
-	private String programme;
 	private String objectif; 
+	private String programme;
+	private String city;
+	private String category;
+	
+	
 }

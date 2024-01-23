@@ -6,6 +6,7 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -114,8 +115,18 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Users
+              Formation
             </Typography>
+          
+        
+            <Item
+              title="Formation"
+              to="/formation"
+              icon={<ReceiptOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+       
           
             </Box>
           </Menu>
