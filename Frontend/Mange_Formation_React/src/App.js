@@ -16,12 +16,13 @@ function App() {
   const isAssistent = isUserAssistent();
     return (
       <Routes>
+        
         <Route
           path="/login"
           element={
             <div className="app">
               <main className="content">
-                <Topbar />
+              
                 <Login />
               </main>
             </div>

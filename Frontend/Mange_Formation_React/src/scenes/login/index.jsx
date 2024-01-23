@@ -12,7 +12,7 @@ import {
   Stack,
 } from "@mui/material";
 import Sousbg from "../../Assets/sousbg.png";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
