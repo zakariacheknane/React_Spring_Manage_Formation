@@ -34,9 +34,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/users/authenticate","/users/newFormateurextern","/formation/all").permitAll()
+                .requestMatchers("/users/authenticate","/users/newFormateurextern","/formation/all","/formateur/all","/enterprise/all").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/users/**","/formation/**","/formateur/**")
+                .authorizeHttpRequests().requestMatchers("/users/**","/formation/**","/formateur/**","/enterprise/**")
                 .authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

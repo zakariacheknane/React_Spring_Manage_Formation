@@ -9,6 +9,7 @@ import ForgotPassword from "./scenes/ForgotPassword";
 import { useUserContext } from "./Context/UserContext";
 import Formation from "./scenes/formation";
 import Formateur from "./scenes/formateur";
+import Enterprise from "./scenes/enterprise";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -56,6 +57,7 @@ function App() {
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/formation" element={<Formation />} />
                         <Route path="/formateur" element={<Formateur />} />
+                        <Route path="/enterprise" element={<Enterprise />} />
                       </Routes>
                     </main>
                   </div>
@@ -65,7 +67,6 @@ function App() {
           }
         />
         ) : (
-          // Redirect to another route if the user is not an admin
           <Route
             path="/*"
             element={<Navigate to="/login" />}

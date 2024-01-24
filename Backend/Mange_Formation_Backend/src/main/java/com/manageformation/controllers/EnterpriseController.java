@@ -13,32 +13,34 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.manageformation.entities.Formateur;
-import com.manageformation.services.FormateurService;
+
+import com.manageformation.entities.Enterprise;
+import com.manageformation.services.EnterpriseService;
 
 @RestController
-@RequestMapping("/formateur")
+@RequestMapping("/enterprise")
 @CrossOrigin("*")
-public class FormateurController {
+public class EnterpriseController {
 	@Autowired
-    private FormateurService formateurservice;
-	@PostMapping("/newFormateurIntern")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String addNewFormateur(@RequestBody Formateur formateurInfo) {
-        return formateurservice.addFormateurIntern(formateurInfo);
-    }
+	private EnterpriseService enterpriseService;
+	@PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+	public Enterprise addEnterprise(@RequestBody Enterprise enterpriseInfo) {
+		return enterpriseService.addEnterprise(enterpriseInfo);
+	}
+	
 	@PutMapping("/update")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
-	public Formateur updateFormateur(@RequestBody Formateur formateurInfo) {
-		return formateurservice.updateFormateur(formateurInfo);
+	public Enterprise updateEnterprise(@RequestBody Enterprise enterpriseInfo) {
+		return enterpriseService.updateEnterprise(enterpriseInfo);
 	}
 	@DeleteMapping("/delete/{id}")
-	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public String deleteFormateur(@PathVariable int id) {
-	 return formateurservice.deleteFormateurById(id);
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+	public String deleteEnterprise(@PathVariable int id) {
+	 return enterpriseService.deleteEnterpriseById(id);
 	}
 	@GetMapping("/all")
-	public List<Formateur> getAllFormateurs(){
-		return formateurservice.getAllFormateurs();
+	public List<Enterprise> getAllEnterprise(){
+		return enterpriseService.getAllEnterprises();
 	}
 }

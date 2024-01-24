@@ -244,7 +244,7 @@ const Formation = () => {
                 id: selectedFormation ? selectedFormation.id : undefined,
               }}
               updateOrcreate={
-                selectedFormation ? "Update" : "Create"
+                selectedFormation ? "Update" : "Create New"
               }
             />
           </Box>
