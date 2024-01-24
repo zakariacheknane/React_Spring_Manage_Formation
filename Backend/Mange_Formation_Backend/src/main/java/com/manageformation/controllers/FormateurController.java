@@ -13,34 +13,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.manageformation.entities.Formation;
-import com.manageformation.services.FormationService;
+import com.manageformation.entities.Formateur;
+import com.manageformation.services.FormateurService;
 
 @RestController
-@RequestMapping("/formation")
+@RequestMapping("/formateur")
 @CrossOrigin("*")
-public class FormationController {
+public class FormateurController {
 	@Autowired
-	private FormationService formationService;
-	@PostMapping("/add")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public Formation addFormation(@RequestBody Formation formationInfo) {
-		return formationService.addFormation(formationInfo);
-	}
-	
+    private FormateurService formateurservice;
+	@PostMapping("/newFormateurIntern")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public String addNewFormateur(@RequestBody Formateur formateurInfo) {
+        return formateurservice.addFormateurIntern(formateurInfo);
+    }
 	@PutMapping("/update")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
-	public Formation updateFormation(@RequestBody Formation formationInfo) {
-		return formationService.updateFormation(formationInfo);
+	public Formateur updateFormateur(@RequestBody Formateur formateurInfo) {
+		return formateurservice.updateFormateur(formateurInfo);
 	}
 	@DeleteMapping("/delete/{id}")
 	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public String deleteFormation(@PathVariable int id) {
-	 return formationService.deleteFormationById(id);
+	public String deleteFormateur(@PathVariable int id) {
+	 return formateurservice.deleteFormateurById(id);
 	}
 	@GetMapping("/all")
-	public List<Formation> getAllFormations(){
-		return formationService.getAllFormations();
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	public List<Formateur> getAllFormateurs(){
+		return formateurservice.getAllFormateurs();
 	}
-
 }

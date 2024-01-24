@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/users/authenticate","/users/newFormateurextern","/formation/all").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/users/**","/formation/**")
+                .authorizeHttpRequests().requestMatchers("/users/**","/formation/**","/formateur/**")
                 .authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

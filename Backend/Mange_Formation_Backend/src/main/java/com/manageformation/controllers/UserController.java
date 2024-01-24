@@ -19,20 +19,18 @@ import com.manageformation.dto.JwtResponse;
 import com.manageformation.services.JwtService;
 
 
+
 @RestController
 @RequestMapping("/users")
 @CrossOrigin("*")
 public class UserController {
-   
     @Autowired
     private JwtService jwtService;
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
     @PostMapping("/authenticate")
     public ResponseEntity<?>authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-    	
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         UserInfoUserDetails userDetails=(UserInfoUserDetails) authentication.getPrincipal();
         String jwt=jwtService.generateToken(authRequest.getUsername());
