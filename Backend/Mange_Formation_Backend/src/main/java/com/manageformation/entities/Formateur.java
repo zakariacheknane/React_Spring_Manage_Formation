@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Formateur extends UserInfo{
    String type;
-   String compétences;
-
+   String skills;
+   String remarks;
 }
