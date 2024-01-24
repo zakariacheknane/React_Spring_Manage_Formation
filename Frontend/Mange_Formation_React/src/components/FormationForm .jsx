@@ -139,7 +139,7 @@ const FormationForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
 
           <Box display="flex" justifyContent="end" mt="20px">
             <Button type="submit" color="secondary" variant="contained">
-              {updateOrcreate} New Formation
+              {updateOrcreate}  Formation
             </Button>
             <Box ml={2}>
               <Button

@@ -38,7 +38,6 @@ public class FormateurController {
 	 return formateurservice.deleteFormateurById(id);
 	}
 	@GetMapping("/all")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public List<Formateur> getAllFormateurs(){
 		return formateurservice.getAllFormateurs();
 	}

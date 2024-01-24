@@ -40,7 +40,6 @@ public class EnterpriseController {
 	 return enterpriseService.deleteEnterpriseById(id);
 	}
 	@GetMapping("/all")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public List<Enterprise> getAllEnterprise(){
 		return enterpriseService.getAllEnterprises();
 	}

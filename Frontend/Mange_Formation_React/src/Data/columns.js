@@ -73,3 +73,33 @@ export const columnsFormation = [
     },
    
   ];
+  export const columnsEnterprise = [
+    { field: "id", headerName: "ID" },
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 1,
+      cellClassName: "name-column--cell",
+    },
+    {
+      field: "adress",
+      headerName: "Adress",
+      flex: 1,
+    },
+    {
+      field: "number_phone",
+      headerName: "Number Phone",
+      flex: 1,
+    },
+    {
+      field: "url",
+      headerName: "URL",
+      flex: 1,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      flex: 1,
+    },
+    
+  ];

@@ -2,18 +2,18 @@ import React from "react";
 import { Formik } from "formik";
 import { Box, TextField, Button, useMediaQuery } from "@mui/material";
 
-const FormateurForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
+const EnterpriseForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   return (
     <Formik
       onSubmit={onSubmit}
       initialValues={{
-        firstname:"",
-        lastname: "",
+        name:"",
+        adress: "",
+        number_phone: "",
+        url: "",
         email: "",
-        skills: "",
-        remarks: "",
         ...initialValues,
       }}
     >
@@ -40,28 +40,28 @@ const FormateurForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
               fullWidth
               variant="filled"
               type="text"
-              label="First Name"
+              label="Name"
               onBlur={handleBlur}
               onChange={handleChange}
-              value={values.firstname}
-              name="firstname"
-              error={!!touched.firstname && !!errors.firstname}
-              helperText={touched.firstname && errors.firstname}
-              sx={{ gridColumn: "span 2 " }}
+              value={values.name}
+              name="name"
+              error={!!touched.name && !!errors.name}
+              helperText={touched.name && errors.name}
+              sx={{ gridColumn: "span 4 " }}
             />
 
             <TextField
               fullWidth
               variant="filled"
               type="text"
-              label="Last Name"
+              label="Adress"
               onBlur={handleBlur}
               onChange={handleChange}
-              value={values.lastname}
-              name="lastname"
-              error={!!touched.lastname && !!errors.lastname}
-              helperText={touched.lastname && errors.lastname}
-              sx={{ gridColumn: "span 2" }}
+              value={values.adress}
+              name="adress"
+              error={!!touched.adress && !!errors.adress}
+              helperText={touched.adress && errors.adress}
+              sx={{ gridColumn: "span 4" }}
             />
 
             <TextField
@@ -82,13 +82,13 @@ const FormateurForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
               fullWidth
               variant="filled"
               type="text"
-              label="Skills"
+              label="URL"
               onBlur={handleBlur}
               onChange={handleChange}
-              value={values.skills}
-              name="skills"
-              error={!!touched.skills && !!errors.skills}
-              helperText={touched.skills && errors.skills}
+              value={values.url}
+              name="url"
+              error={!!touched.url && !!errors.url}
+              helperText={touched.url && errors.url}
               sx={{ gridColumn: "span 4" }}
             />
 
@@ -96,13 +96,13 @@ const FormateurForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
               fullWidth
               variant="filled"
               type="text"
-              label="Remarks"
+              label="Number Phone"
               onBlur={handleBlur}
               onChange={handleChange}
-              value={values.remarks}
-              name="remarks"
-              error={!!touched.remarks && !!errors.remarks}
-              helperText={touched.remarks && errors.remarks}
+              value={values.number_phone}
+              name="number_phone"
+              error={!!touched.number_phone && !!errors.number_phone}
+              helperText={touched.number_phone && errors.number_phone}
               sx={{ gridColumn: "span 4" }}
             />
 
@@ -111,7 +111,7 @@ const FormateurForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
 
           <Box display="flex" justifyContent="end" mt="20px">
             <Button type="submit" color="secondary" variant="contained">
-              {updateOrcreate} Formateur
+              {updateOrcreate}  Enterprise
             </Button>
             <Box ml={2}>
               <Button
@@ -129,4 +129,4 @@ const FormateurForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
   );
 };
 
-export default FormateurForm;
+export default EnterpriseForm;

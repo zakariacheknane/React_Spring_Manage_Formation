@@ -14,22 +14,22 @@ import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import axios from "axios";
 import AddIcon from "@mui/icons-material/Add";
-import { columnsFormateur } from "../../Data/columns";
+import { columnsEnterprise } from "../../Data/columns";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FormateurForm from "../../components/FormateurForm ";
-const Formateur = () => {
+import EnterpriseForm from "../../components/EnterpriseForm";
+const Enterprise = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [rows, setRows] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [selectedFormateur, setSelectedFormateur] = useState(null);
+  const [selectedEnterprise, setSelectedEnterprise] = useState(null);
   const storedData = localStorage.getItem("user");
   const decodedData = storedData ? JSON.parse(atob(storedData)) : null;
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/formateur/all", {
+      const response = await axios.get("http://localhost:8080/enterprise/all", {
         headers: {
           Authorization: `Bearer ${decodedData.token}`,
         },
@@ -49,7 +49,7 @@ const Formateur = () => {
       console.log("Submitting form with values:", values);
 
       const response = await axios.post(
-        "http://localhost:8080/formateur/newFormateurIntern",
+        "http://localhost:8080/enterprise/add",
         values,
         {
           headers: {
@@ -70,7 +70,7 @@ const Formateur = () => {
       console.log("Updating form with values:", values);
 
       const response = await axios.put(
-        "http://localhost:8080/formateur/update",
+        "http://localhost:8080/enterprise/update",
         values,
         {
           headers: {
@@ -88,10 +88,10 @@ const Formateur = () => {
 
   const handleDelete = async (id) => {
     try {
-      console.log("Deleting formateur with ID:", id);
+      console.log("Deleting enterprise with ID:", id);
 
       const response = await axios.delete(
-        `http://localhost:8080/formateur/delete/${id}`,
+        `http://localhost:8080/enterprise/delete/${id}`,
         {
           headers: {
             Authorization: `Bearer ${decodedData.token}`,
@@ -102,34 +102,34 @@ const Formateur = () => {
       handleCloseModal();
       console.log("Server response:", response.data);
     } catch (error) {
-      console.error("Error deleting formateur:", error);
+      console.error("Error deleting enterprise", error);
     }
   };
 
-  const handleOpenModal = (formateur) => {
-    setSelectedFormateur(formateur);
+  const handleOpenModal = (enterprise) => {
+    setSelectedEnterprise(enterprise);
     setOpenModal(true);
   };
   const handleOpenModalAdd = () => {
-    setSelectedFormateur(null);
+    setSelectedEnterprise(null);
     setOpenModal(true);
   };
   const handleCloseModal = () => {
-    setSelectedFormateur(null);
+    setSelectedEnterprise(null);
     setOpenModal(false);
   };
-  const handleOpenDeleteDialog = (formateur) => {
-    setSelectedFormateur(formateur);
+  const handleOpenDeleteDialog = (enterprise) => {
+    setSelectedEnterprise(enterprise);
     setOpenDeleteDialog(true);
   };
   const handleCloseDeleteModal = () => {
-    setSelectedFormateur(null);
+    setSelectedEnterprise(null);
     setOpenDeleteDialog(false);
   };
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="FORMATEURS" subtitle="List of Formateur" />
+        <Header title="ENTERPRISES" subtitle="List of Enterprise" />
         <Box>
           <Button
             onClick={handleOpenModalAdd}
@@ -142,7 +142,7 @@ const Formateur = () => {
             }}
           >
             <AddIcon sx={{ mr: "10px" }} />
-            Add Formateur Intern
+            Add Enterprise
           </Button>
         </Box>
       </Box>
@@ -184,7 +184,7 @@ const Formateur = () => {
           components={{ Toolbar: GridToolbar }}
           rows={rows}
           columns={[
-            ...columnsFormateur,
+            ...columnsEnterprise,
             {
               field: "update",
               headerName: "Update",
@@ -226,7 +226,7 @@ const Formateur = () => {
             padding: "10px 20px",
           }}
         >
-          {selectedFormateur ? "Update Formateur" : "Add Formateur"}
+          {selectedEnterprise ? "Update Enterprise" : "Add Enterprise"}
         </DialogTitle>
         <DialogContent
           sx={{
@@ -238,17 +238,17 @@ const Formateur = () => {
           }}
         >
           <Box m="20px">
-          <FormateurForm
+          <EnterpriseForm
               onSubmit={
-                selectedFormateur ? handleUpdate : handleFormSubmit
+                selectedEnterprise ? handleUpdate : handleFormSubmit
               }
               onClick={handleCloseModal}
               initialValues={{
-                ...selectedFormateur,
-                id: selectedFormateur ? selectedFormateur.id : undefined,
+                ...selectedEnterprise,
+                id: selectedEnterprise ? selectedEnterprise.id : undefined,
               }}
               updateOrcreate={
-                selectedFormateur ? "Update" : "Create New"
+                selectedEnterprise ? "Update" : "Create New"
               }
             />
           </Box>
@@ -264,7 +264,7 @@ const Formateur = () => {
             padding: "10px 20px",
           }}
         >
-          Delete Formateur
+          Delete Enterprise
         </DialogTitle>
         <DialogContent
           sx={{
@@ -277,11 +277,11 @@ const Formateur = () => {
         >
           <Box m="20px">
           <Typography>
-                Are you sure you want to delete this formateur?
+                Are you sure you want to delete this Enterprise?
             </Typography>
             <Box display="flex" justifyContent="end" mt="20px">
             <Button
-                onClick={() => handleDelete(selectedFormateur.id)}
+                onClick={() => handleDelete(selectedEnterprise.id)}
                 sx={{
                   backgroundColor: colors.redAccent[500],
                   color: colors.grey[100],
@@ -312,4 +312,4 @@ const Formateur = () => {
   );
 };
 
-export default Formateur;
+export default Enterprise;
