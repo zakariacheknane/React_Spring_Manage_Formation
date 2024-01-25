@@ -13,4 +13,5 @@ public class Formateur extends UserInfo{
    String type;
    String skills;
    String remarks;
+   
 }
