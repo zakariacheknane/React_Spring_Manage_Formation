@@ -10,6 +10,7 @@ import { useUserContext } from "./Context/UserContext";
 import Formation from "./scenes/formation";
 import Formateur from "./scenes/formateur";
 import Enterprise from "./scenes/enterprise";
+import Planification from "./scenes/planification";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -58,6 +59,7 @@ function App() {
                         <Route path="/formation" element={<Formation />} />
                         <Route path="/formateur" element={<Formateur />} />
                         <Route path="/enterprise" element={<Enterprise />} />
+                        <Route path="/planification" element={<Planification />} />
                       </Routes>
                     </main>
                   </div>

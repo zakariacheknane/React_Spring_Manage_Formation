@@ -9,6 +9,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import BusinessIcon from '@mui/icons-material/Business';
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -159,7 +160,20 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-       
+                  <Typography
+              variant="h6"
+              color={colors.grey[300]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
+              Planification
+            </Typography>
+       <Item
+              title="Planification"
+              to="/planification"
+              icon={<CalendarTodayOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
           </Box>
         </Menu>
       </ProSidebar>
