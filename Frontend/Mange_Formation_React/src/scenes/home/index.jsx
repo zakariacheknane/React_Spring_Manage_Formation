@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-
 import axios from 'axios'; // You may need to install axios
 import HorizontalCard from '../../components/HorizontalCard';
 
@@ -10,8 +9,7 @@ const Home = () => {
     // Make the API call when the component mounts
     axios.get('http://localhost:8080/formation/all')
       .then(response => {
-        setFormateurs(response.data); 
-        console.log(response.data)// Assuming the API response is an array of formateurs
+        setFormateurs(response.data);
       })
       .catch(error => {
         console.error('Error fetching formateurs:', error);
@@ -19,7 +17,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {formateurs.map(formateur => (
         <HorizontalCard
           key={formateur.id} 

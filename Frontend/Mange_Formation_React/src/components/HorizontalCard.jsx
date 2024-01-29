@@ -1,7 +1,8 @@
 // HorizontalCard.js
 
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography,Button,useTheme } from '@mui/material';
+import { tokens } from '../theme';
 
 const getImageBasedOnCategory = (category) => {
   if (category) {
@@ -22,9 +23,10 @@ const getImageBasedOnCategory = (category) => {
 
 const HorizontalCard = ({ title, nbHours, cost, objective, city, category }) => {
   const imageUrl = getImageBasedOnCategory(category);
-
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   return (
-    <Card style={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' , maxWidth: '50%' , direction: 'row'}}>
+    <Card  style={{ backgroundColor: "#fcfcfc",display: 'flex', flexDirection: 'row', marginBottom: '16px' , width: '40%' , direction: 'row',marginLeft: '100px'}}>
       <CardMedia
         component="img"
         sx={{ width: 160, objectFit: 'cover',mt:'16px' }}
@@ -33,22 +35,28 @@ const HorizontalCard = ({ title, nbHours, cost, objective, city, category }) => 
         image={imageUrl}
       />
       <CardContent>
-        <Typography variant="h6">{title}</Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="h4" color={colors.grey[800]} align="center">{title}</Typography>
+        <Typography variant="body2" color={colors.grey[500]}>
           <strong>Duration:</strong> {nbHours} hours
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color={colors.grey[500]}>
           <strong>Cost:</strong> ${cost}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color={colors.grey[500]}>
           <strong>Objective:</strong> {objective}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color={colors.grey[500]}>
           <strong>City:</strong> {city}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color={colors.grey[500]}>
           <strong>Category:</strong> {category}
         </Typography>
+        <Button variant="outlined" color="primary" onClick={() => console.log('Individu')}  style={{ marginTop: theme.spacing(2), marginRight: theme.spacing(1) }} >
+          Inscrive as Individu
+        </Button>
+        <Button variant="outlined" color="primary" onClick={() => console.log('Formater')} style={{ marginTop: theme.spacing(2)}}>
+          Inscrive as Formater
+        </Button>
       </CardContent>
     </Card>
   );

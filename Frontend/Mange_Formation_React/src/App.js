@@ -31,15 +31,21 @@ function App() {
             </div>
           }
         />
-        
+      
         <Route
           path="/home"
           element={
+            <ThemeProvider theme={theme}>
+            <ColorModeContext.Provider value={colorMode}>
+              <CssBaseline />
             <div className="app">
               <main className="content">
+              <Topbar />
                 <Home />
               </main>
             </div>
+             </ColorModeContext.Provider>
+             </ThemeProvider>
           }
         />
         <Route
