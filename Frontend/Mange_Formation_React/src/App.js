@@ -11,6 +11,7 @@ import Formation from "./scenes/formation";
 import Formateur from "./scenes/formateur";
 import Enterprise from "./scenes/enterprise";
 import Planification from "./scenes/planification";
+import Home from "./scenes/home";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -25,10 +26,26 @@ function App() {
           element={
             <div className="app">
               <main className="content">
-              
                 <Login />
               </main>
             </div>
+          }
+        />
+      
+        <Route
+          path="/home"
+          element={
+            <ThemeProvider theme={theme}>
+            <ColorModeContext.Provider value={colorMode}>
+              <CssBaseline />
+            <div className="app">
+              <main className="content">
+              <Topbar />
+                <Home />
+              </main>
+            </div>
+             </ColorModeContext.Provider>
+             </ThemeProvider>
           }
         />
         <Route
