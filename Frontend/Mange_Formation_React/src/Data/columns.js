@@ -36,6 +36,11 @@ export const columnsFormation = [
       headerName: "Category",
       flex: 1,
     },
+    {
+      field: "team_seuil",
+      headerName: "Team Seuil",
+      flex: 1,
+    },
   ];
   export const columnsFormateur = [
     { field: "id", headerName: "ID" },

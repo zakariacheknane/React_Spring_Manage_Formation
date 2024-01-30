@@ -25,13 +25,12 @@ const Formateur = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedFormateur, setSelectedFormateur] = useState(null);
-  const storedData = localStorage.getItem("user");
-  const decodedData = storedData ? JSON.parse(atob(storedData)) : null;
+  const token = localStorage.getItem("token");
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:8080/formateur/all", {
         headers: {
-          Authorization: `Bearer ${decodedData.token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       setRows(response.data);
@@ -53,7 +52,7 @@ const Formateur = () => {
         values,
         {
           headers: {
-            Authorization: `Bearer ${decodedData.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -74,7 +73,7 @@ const Formateur = () => {
         values,
         {
           headers: {
-            Authorization: `Bearer ${decodedData.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -94,12 +93,12 @@ const Formateur = () => {
         `http://localhost:8080/formateur/delete/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${decodedData.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       fetchData();
-      handleCloseModal();
+      handleCloseDeleteModal();
       console.log("Server response:", response.data);
     } catch (error) {
       console.error("Error deleting formateur:", error);

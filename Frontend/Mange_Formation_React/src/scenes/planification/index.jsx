@@ -42,7 +42,7 @@ const Planification = () => {
 
       const events = planifications.map((planification) => ({
         id: planification.id.toString(),
-        title:planification.formation.name_formation,
+        title: planification.formation.name_formation,
         start: planification.startDate,
         end: planification.endDate,
         allDay: true,
@@ -96,10 +96,10 @@ const Planification = () => {
   };
 
   const handleFormSubmit = async (values) => {
+    console.log("Server :", values);
     try {
       const response = await axios.post(
-        "http://localhost:8080/planification/add",
-        values
+        `http://localhost:8080/planification/planify?startDate=${values.startDate}&endDate=${values.endDate}&formationId=${values.formation_id}&formateurId=${values.formateur_id}&entrepriseId=${values.Entreprise_id}&teamId=${values.Team_id}`
       );
       fetchData();
       handleCloseModal();
@@ -191,7 +191,7 @@ const Planification = () => {
               >
                 <ListItemText
                   primary={`${event.title}`} // Concatenate "Formation" with the event title
-                  sx={{ textAlign: "center" }} 
+                  sx={{ textAlign: "center" }}
                   secondary={
                     <>
                       <Typography sx={{ color: colors.grey[100] }}>
@@ -206,9 +206,7 @@ const Planification = () => {
                         By: {event.formateur.firstname}{" "}
                         {event.formateur.lastname}
                       </Typography>
-                      <Typography sx={{ color: colors.grey[100] }}>
-                        Enterprise: {event.entreprise.name}{" "}
-                      </Typography>
+                    
                     </>
                   }
                 />

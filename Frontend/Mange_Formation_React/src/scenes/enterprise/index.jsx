@@ -25,13 +25,14 @@ const Enterprise = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedEnterprise, setSelectedEnterprise] = useState(null);
-  const storedData = localStorage.getItem("user");
-  const decodedData = storedData ? JSON.parse(atob(storedData)) : null;
+  const token = localStorage.getItem("token");
+  
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:8080/enterprise/all", {
         headers: {
-          Authorization: `Bearer ${decodedData.token}`,
+          Authorization: `Bearer ${token}`,
+         
         },
       });
       setRows(response.data);
@@ -53,7 +54,8 @@ const Enterprise = () => {
         values,
         {
           headers: {
-            Authorization: `Bearer ${decodedData.token}`,
+            Authorization: `Bearer ${token}`,
+            'Content-Type':'application/json',
           },
         }
       );
@@ -74,7 +76,7 @@ const Enterprise = () => {
         values,
         {
           headers: {
-            Authorization: `Bearer ${decodedData.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -94,12 +96,12 @@ const Enterprise = () => {
         `http://localhost:8080/enterprise/delete/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${decodedData.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
       fetchData();
-      handleCloseModal();
+      handleCloseDeleteModal();
       console.log("Server response:", response.data);
     } catch (error) {
       console.error("Error deleting enterprise", error);
