@@ -45,4 +45,8 @@ public class FormateurController {
     public String addNewFormateurExtern(@RequestBody Formateur formateurInfo,@PathVariable int formation_id) {
         return formateurservice.addFormateurExtern(formateurInfo,formation_id);
     }
+	@GetMapping("/count")
+	public Long countFormateurs(){
+		return formateurservice.countFormateurs();
+	}
 }

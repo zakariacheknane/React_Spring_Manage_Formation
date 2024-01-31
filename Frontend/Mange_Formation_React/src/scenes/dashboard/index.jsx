@@ -1,10 +1,43 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
+import StatBox from "../../components/StatBox";
+import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
+import BusinessIcon from '@mui/icons-material/Business';
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [formationCount, setFormationCount] = useState(0);
+  const [formateurCount, setFormateurCount] = useState(0);
+  const [enterpriseCount, setEnterpriseCount] = useState(0);
+  const [individuCount, setIndividuCount] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const formationResponse = await axios.get("http://localhost:8080/formation/count");
+        setFormationCount(formationResponse.data);
+
+        const formateurResponse = await axios.get("http://localhost:8080/formateur/count");
+        setFormateurCount(formateurResponse.data);
+
+        const enterpriseResponse = await axios.get("http://localhost:8080/enterprise/count");
+        setEnterpriseCount(enterpriseResponse.data);
+
+        const individuResponse = await axios.get("http://localhost:8080/individu/count");
+        setIndividuCount(individuResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array to ensure the effect runs only once on component mount
 
   return (
     <Box m="20px">
@@ -26,28 +59,52 @@ const Dashboard = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
-        ></Box>
+        >
+          <StatBox
+            title={formationCount}
+            subtitle="Formations"
+            icon={<ReceiptOutlinedIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }} />}
+          />
+        </Box>
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center"
-        ></Box>
+        >
+          <StatBox
+            title={formateurCount}
+            subtitle="Formateurs"
+            icon={<ContactsOutlinedIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }} />}
+          />
+        </Box>
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center"
-        ></Box>
+        >
+          <StatBox
+            title={enterpriseCount}
+            subtitle="Enterprise"
+            icon={<BusinessIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }} />}
+          />
+        </Box>
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="center"
-        ></Box>
+        >
+          <StatBox
+            title={individuCount}
+            subtitle="Individu"
+            icon={<PeopleOutlinedIcon sx={{ color: colors.greenAccent[600], fontSize: "26px" }} />}
+          />
+        </Box>
  
       {/* ROW 2 */}
       <Box

@@ -58,5 +58,9 @@ public class FormationController {
 		 List<Formation> formations = formationService.findByDate(date);
 		 return formations;
 	 }
+	@GetMapping("/count")
+	public Long countFormations(){
+		return formationService.countFormations();
+	}
 }
 

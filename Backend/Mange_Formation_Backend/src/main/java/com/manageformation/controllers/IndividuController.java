@@ -38,6 +38,10 @@ public class IndividuController {
 	public List<Individu> getAllFormations(){
 		return individuService.getAllIndividus();
 	}
+	@GetMapping("/count")
+	public long countIndividu() {
+	    return individuService.countIndividu();
+	}
 }
 
 

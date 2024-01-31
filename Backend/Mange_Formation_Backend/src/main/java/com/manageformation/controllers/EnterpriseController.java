@@ -43,4 +43,8 @@ public class EnterpriseController {
 	public List<Enterprise> getAllEnterprise(){
 		return enterpriseService.getAllEnterprises();
 	}
+	@GetMapping("/count")
+	public Long countEnterprises(){
+		return enterpriseService.countEnterprises();
+	}
 }

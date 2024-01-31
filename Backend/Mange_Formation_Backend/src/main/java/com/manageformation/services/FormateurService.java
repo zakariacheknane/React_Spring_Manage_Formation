@@ -46,4 +46,7 @@ public class FormateurService {
 		  formateurrepo.save(formateurInfo);
 	      return "Formateur added to system ";
 	  }
+    public long countFormateurs() {
+        return formateurrepo.count();
+    }
 }

@@ -54,4 +54,7 @@ public class IndividuService {
 	        newTeam.setFormation(formation);
 	        return teamRepository.save(newTeam);
 	    }
+	    public long countIndividu() {
+	        return individuRepository.count();
+	    }
 }
