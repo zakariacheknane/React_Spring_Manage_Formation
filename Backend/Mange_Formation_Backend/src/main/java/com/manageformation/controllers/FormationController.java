@@ -1,5 +1,6 @@
 package com.manageformation.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,20 @@ public class FormationController {
 	public List<Formation> getAllFormations(){
 		return formationService.getAllFormations();
 	}
-
+	@GetMapping("/findByCategory/{categorie}")
+	 public List<Formation> findByCategory(@PathVariable String categorie) {
+		 List<Formation> formations = formationService.findByCategory(categorie);
+		 return formations;
+	 }
+	@GetMapping("/findByCity/{city}")
+	 public List<Formation> findByCity(@PathVariable String city) {
+		 List<Formation> formations = formationService.findByCity(city);
+		 return formations;
+	 }
+	@GetMapping("/findByDate/{date}")
+	 public List<Formation> findByDate(@PathVariable LocalDate date) {
+		 List<Formation> formations = formationService.findByDate(date);
+		 return formations;
+	 }
 }
+

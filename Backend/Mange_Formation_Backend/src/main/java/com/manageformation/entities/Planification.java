@@ -2,6 +2,7 @@ package com.manageformation.entities;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,15 +24,20 @@ public class Planification {
     private int id;
     private LocalDate startDate;
     private LocalDate endDate;
-    @ManyToOne
-    @JoinColumn(name="formation_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "formation_id", nullable = false)
     private Formation formation;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "formateur_id")
     private Formateur formateur;
-    @ManyToOne
+    
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "Entreprise_id")
     private Enterprise entreprise;
+    
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "group_id")
+    Team group;
    
 }

@@ -7,15 +7,13 @@ export const useUserContext = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
   // Define your user-related functions here
   const isUserAdmin = () => {
-    const storedData = localStorage.getItem("user");
-    const decodedData = storedData ? JSON.parse(atob(storedData)) : null;
-    return decodedData && decodedData.roles && decodedData.roles.includes("ROLE_ADMIN");
+    const storedData = localStorage.getItem("role");
+    return storedData  && storedData.includes("ROLE_ADMIN");
   };
 
   const isUserAssistent = () => {
-    const storedData = localStorage.getItem("user");
-    const decodedData = storedData ? JSON.parse(atob(storedData)) : null;
-    return decodedData && decodedData.roles && decodedData.roles.includes("ROLE_ASSISTENT");
+    const storedData = localStorage.getItem("role");
+    return storedData  && storedData.includes("ROLE_ASSISTENT");
   };
 
   const contextValue = {

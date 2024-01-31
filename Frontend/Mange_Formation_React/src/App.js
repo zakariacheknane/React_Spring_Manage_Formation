@@ -13,6 +13,7 @@ import Enterprise from "./scenes/enterprise";
 import Planification from "./scenes/planification";
 import Home from "./scenes/home";
 
+
 function App() {
   const [theme, colorMode] = useMode();
   const { isUserAdmin, isUserAssistent } = useUserContext();

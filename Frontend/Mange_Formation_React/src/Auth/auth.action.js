@@ -10,8 +10,10 @@ export const loginUserAction = (loginData) => async (dispatch) => {
       loginData.data
     );
     if (data.token) {
-        const encodedData = btoa(JSON.stringify(data));
-        localStorage.setItem("user", encodedData);
+       
+        localStorage.setItem("token",data.token);
+        localStorage.setItem("email",data.email);
+        localStorage.setItem("role",data.roles);
     }
     dispatch({ type: LOGIN_SUCCESS, payload: data });
     console.log("login success",data)
@@ -21,12 +23,13 @@ export const loginUserAction = (loginData) => async (dispatch) => {
   }
 };
 export const logout=()=>async (dispatch) =>{
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    localStorage.removeItem("role");
     dispatch({ type: LOGOUT });
   }
 export const getCurrentUser =()=> async(dispatch) => {
-    const storedData = localStorage.getItem("user");
-    const decodedData = storedData ? JSON.parse(atob(storedData)) : null;
-    dispatch({ type: CURRENT_USER, payload: decodedData });  
+    const token = localStorage.getItem("token");
+    dispatch({ type: CURRENT_USER, payload: token });  
   };
   

@@ -18,14 +18,14 @@ const PlanificationForm = ({ onSubmit, onClick, initialValues, updateOrcreate })
   const [formations, setFormations] = useState([]);
   const [formateurs, setFormateurs] = useState([]);
   const [entreprises, setEntreprises] = useState([]);
-
+  const [teams, setTeams] = useState([]);
+  const [selectedFormationId, setSelectedFormationId] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const formationsResponse = await axios.get("http://localhost:8080/formation/all");
         const formateursResponse = await axios.get("http://localhost:8080/formateur/all");
         const entreprisesResponse = await axios.get("http://localhost:8080/enterprise/all");
-
         setFormations(formationsResponse.data);
         setFormateurs(formateursResponse.data);
         setEntreprises(entreprisesResponse.data);
@@ -37,6 +37,22 @@ const PlanificationForm = ({ onSubmit, onClick, initialValues, updateOrcreate })
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchTeams = async () => {
+      if (selectedFormationId) {
+        try {
+          const teamsResponse = await axios.get(`http://localhost:8080/team/findbyFormation/${selectedFormationId}`);
+          setTeams(teamsResponse.data);
+        } catch (error) {
+          console.error("Error fetching teams:", error);
+        }
+      }
+    };
+
+    fetchTeams();
+  }, [selectedFormationId]);
+
+
   return (
     <Formik
       onSubmit={onSubmit}
@@ -46,6 +62,7 @@ const PlanificationForm = ({ onSubmit, onClick, initialValues, updateOrcreate })
         formation_id: "",
         formateur_id: "",
         Entreprise_id: "",
+        Team_id: "",
         ...initialValues,
       }}
     >
@@ -96,7 +113,10 @@ const PlanificationForm = ({ onSubmit, onClick, initialValues, updateOrcreate })
                 name="formation_id"
                 value={values.formation_id}
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={(event) => {
+                  handleChange(event);
+                  setSelectedFormationId(event.target.value); // Update selectedFormationId
+                }}
               >
                 {formations.map((formation) => (
                   <MenuItem key={formation.id} value={formation.id}>
@@ -135,6 +155,23 @@ const PlanificationForm = ({ onSubmit, onClick, initialValues, updateOrcreate })
                 {entreprises.map((entreprise) => (
                   <MenuItem key={entreprise.id} value={entreprise.id}>
                     {entreprise.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            
+            <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 4" }}>
+              <InputLabel htmlFor="Team_id">Team</InputLabel>
+              <Select
+                label="Team"
+                name="Team_id"
+                value={values.Team_id}
+                onBlur={handleBlur}
+                onChange={handleChange}
+              >
+                {teams.map((team) => (
+                  <MenuItem key={team.id} value={team.id}>
+                    {team.id}
                   </MenuItem>
                 ))}
               </Select>
