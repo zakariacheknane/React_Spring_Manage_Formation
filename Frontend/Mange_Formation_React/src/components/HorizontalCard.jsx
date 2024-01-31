@@ -5,6 +5,7 @@ import { Card, CardContent, CardMedia, Typography,Button,useTheme } from '@mui/m
 import { tokens } from '../theme';
 import WEB_DEVELOPMENT from '../Assets/WEB_DEVELOPMENT.png';
 import Machine_Learning from'../Assets/Machine_Learning.jpg';
+import Formation from '../Assets/formation.png'
 const getImageBasedOnCategory = (category) => {
   if (category) {
     // Add your logic to map categories to specific images
@@ -15,7 +16,7 @@ const getImageBasedOnCategory = (category) => {
         return Machine_Learning;
       // Add more cases for other categories as needed
       default:
-             return '';
+             return Formation;
     }
   }
   return ''; // Default image for undefined category
