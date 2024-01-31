@@ -33,4 +33,11 @@ public class FormateurService {
 		formateurrepo.deleteById(id);
 		return "formateur deleted";
 	}
+	public String addFormateurExtern(Formateur formateurInfo) {
+		  formateurInfo.setPassword(passwordEncoder.encode("formateur2024"));
+		  formateurInfo.setRoles("ROLE_FORMATEUR");
+		  formateurInfo.setType("EXTERN");
+		  formateurrepo.save(formateurInfo);
+	      return "Formateur added to system ";
+	  }
 }

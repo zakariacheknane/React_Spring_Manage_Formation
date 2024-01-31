@@ -41,4 +41,8 @@ public class FormateurController {
 	public List<Formateur> getAllFormateurs(){
 		return formateurservice.getAllFormateurs();
 	}
+	@PostMapping("/newFormateurExtern")
+    public String addNewFormateurExtern(@RequestBody Formateur formateurInfo) {
+        return formateurservice.addFormateurExtern(formateurInfo);
+    }
 }
