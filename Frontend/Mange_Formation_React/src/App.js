@@ -12,6 +12,7 @@ import Formateur from "./scenes/formateur";
 import Enterprise from "./scenes/enterprise";
 import Planification from "./scenes/planification";
 import Home from "./scenes/home";
+import Feedback from "./scenes/feedback";
 
 
 function App() {
@@ -32,7 +33,21 @@ function App() {
             </div>
           }
         />
-      
+       <Route
+          path="/feedback"
+          element={
+            <ThemeProvider theme={theme}>
+            <ColorModeContext.Provider value={colorMode}>
+              <CssBaseline />
+            <div className="app">
+              <main className="content">
+                <Feedback />
+              </main>
+            </div>
+            </ColorModeContext.Provider>
+             </ThemeProvider>
+          }
+        />
         <Route
           path="/home"
           element={
