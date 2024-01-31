@@ -41,4 +41,8 @@ public class FormateurController {
 	public List<Formateur> getAllFormateurs(){
 		return formateurservice.getAllFormateurs();
 	}
+	@PostMapping("/newFormateurExtern/{formation_id}")
+    public String addNewFormateurExtern(@RequestBody Formateur formateurInfo,@PathVariable int formation_id) {
+        return formateurservice.addFormateurExtern(formateurInfo,formation_id);
+    }
 }

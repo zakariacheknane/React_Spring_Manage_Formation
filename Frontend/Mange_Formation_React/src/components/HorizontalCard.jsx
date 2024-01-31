@@ -22,12 +22,15 @@ const getImageBasedOnCategory = (category) => {
   return ''; // Default image for undefined category
 };
 
-const HorizontalCard = ({ title, nbHours, cost, objective, city, category,onOpenModal,formationId  }) => {
+const HorizontalCard = ({ title, nbHours, cost, objective, city, category,onOpenModal,formationId ,onOpenModalExtern }) => {
   const imageUrl = getImageBasedOnCategory(category);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const handleRegisterClick = () => {
     onOpenModal(formationId);
+  };
+  const handleRegisterFormateurClick = () => {
+    onOpenModalExtern(formationId);
   };
   return (
     <Card  style={{ backgroundColor: "#fcfcfc",display: 'flex', flexDirection: 'row', marginBottom: '16px' , width: '40%' , direction: 'row',marginLeft: '100px'}}>
@@ -58,7 +61,7 @@ const HorizontalCard = ({ title, nbHours, cost, objective, city, category,onOpen
         <Button variant="outlined" color="primary" onClick={handleRegisterClick}   style={{ marginTop: theme.spacing(2), marginRight: theme.spacing(1) }} >
           Inscrive as Individu
         </Button>
-        <Button variant="outlined" color="primary" onClick={() => console.log('Formater')} style={{ marginTop: theme.spacing(2)}}>
+        <Button variant="outlined" color="primary" onClick={handleRegisterFormateurClick} style={{ marginTop: theme.spacing(2)}}>
           Inscrive as Formater
         </Button>
       </CardContent>
