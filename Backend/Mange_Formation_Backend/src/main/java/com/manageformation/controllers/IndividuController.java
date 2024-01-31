@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.manageformation.entities.Individu;
 import com.manageformation.services.IndividuService;
+import com.manageformation.services.MailService;
 
 @RestController
 @RequestMapping("/individu")
@@ -22,9 +23,12 @@ import com.manageformation.services.IndividuService;
 public class IndividuController {
 	@Autowired
     private IndividuService individuService;
+	 @Autowired
+	    MailService emailService;
 	@PostMapping("/registration/{formation_id}")
 	public String addIndividu(@RequestBody Individu individuInfo,@PathVariable int formation_id ) {
-		individuService.registration(individuInfo,formation_id);
+		Individu individu=individuService.registration(individuInfo,formation_id);
+		emailService.sendMail(individu.getEmail(), "welcome", "hello");
 		return "hello";
 	}
 	
@@ -35,7 +39,7 @@ public class IndividuController {
 	}
 	@GetMapping("/all")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public List<Individu> getAllFormations(){
+	public List<Individu> getAllIndividus(){
 		return individuService.getAllIndividus();
 	}
 	@GetMapping("/count")
