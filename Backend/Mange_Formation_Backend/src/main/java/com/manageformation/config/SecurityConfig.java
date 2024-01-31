@@ -37,7 +37,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     	String[] permitAllRoutes = {"/users/authenticate","/formation/all","/formation/findByCity/**","/formation/findByDate/**",
-    	        "/formation/findByCategory/**","/formateur/newFormateurExtern/**","/individu/registration/**","/feedback/add"};
+    	        "/formation/findByCategory/**","/formateur/newFormateurExtern/**","/individu/registration/**","/feedback/add/**"};
     	 String[] authenticatedRoutes = {"/users/**","/formation/**","/formateur/**","/enterprise/**","/individu/**","/feedback/**","/planification/**","/team/**",};
     	return http.csrf().disable()
     			.cors().and() 

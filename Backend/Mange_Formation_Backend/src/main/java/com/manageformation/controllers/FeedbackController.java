@@ -27,9 +27,9 @@ public class FeedbackController {
     public List<Feedback>findAll(){
     	return fs.getAllFeedbacks();
     }
-    @PostMapping("/add")
-    public Feedback addNewFeedback(@RequestBody Feedback feedback) {
-        return fs.addFeedback(feedback);
+    @PostMapping("/add/{formateur_id}/{individu_id}")
+    public Feedback addNewFeedback(@RequestBody Feedback feedback,@PathVariable int formateur_id,@PathVariable int individu_id ) {
+        return fs.addFeedback(feedback,formateur_id,individu_id);
     }
     @GetMapping("/formateur/{id}")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
