@@ -4,6 +4,7 @@ import HorizontalCard from '../../components/HorizontalCard';
 import IndividuForm from '../../components/IndividuForm';
 import { Dialog, DialogTitle, useTheme, DialogContent, Box, TextField, Button } from '@mui/material';
 import { tokens } from "../../theme";
+import form from "../../Assets/5293.png"
 
 const Home = () => {
   const [formations, setFormations] = useState([]);
@@ -61,7 +62,31 @@ const Home = () => {
 
   return (
     <>
-      <div style={{ marginBottom: '16px' }}>
+    <div style={{ 
+      marginBottom:'3em',
+     }}>
+    <div style={{width:"1000px", 
+    marginTop:'3em',
+    marginLeft:'5em',
+    float:'left', 
+    color:'white',
+    fontSize: "26px",
+    fontWeight: "bold",}}>
+      <p style={{ fontSize: "38px",
+      padding:"10px",
+  boxShadow: '2px 2px 4px',
+  borderRadius:'10px',
+  width:"460px"
+     }}>Discover, Learn & Improve </p>
+      <p>You're in the right place, you can find below all the courses available to sign in now, reserve your seat !</p>
+        </div>
+        <div>
+               <img alt="imageee" src={form} style= {{ width:'300px', marginLeft:'150px', marginTop :'100px'  }}/>
+         </div>
+      </div>
+      <hr></hr>
+      <div>
+      <div style={{ marginBottom: '16px', marginLeft:"1200px" }}>
       <TextField
         label="City"
         value={cityFilter}
@@ -132,6 +157,7 @@ const Home = () => {
           </Box>
         </DialogContent>
       </Dialog>
+    </div>
     </div>
     </>
   );
