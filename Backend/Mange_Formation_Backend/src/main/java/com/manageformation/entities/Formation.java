@@ -40,4 +40,7 @@ public class Formation {
     @OneToMany(mappedBy = "formation")
     @JsonIgnore
     private List<Team> teams;
+    @OneToMany(mappedBy = "formation")
+    @JsonIgnore
+    private List<Formateur> formateurs;
 }

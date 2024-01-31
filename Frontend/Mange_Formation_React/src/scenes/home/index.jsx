@@ -12,9 +12,11 @@ import {
 } from "@mui/material";
 import { tokens } from "../../theme";
 import form from "../../Assets/5293.png";
+import FormateurExternForm from "../../components/FormateurExternForm";
 const Home = () => {
   const [formations, setFormations] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalExtern, setOpenModalExtern] = useState(false);
   const [selectedFormationId, setSelectedFormationId] = useState(null);
   const [cityFilter, setCityFilter] = useState("");
   const [dateFilter, setDateFilter] = useState("");
@@ -34,6 +36,14 @@ const Home = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+  const handleOpenModalExtern = (formationId) => {
+    setOpenModalExtern(true);
+    setSelectedFormationId(formationId);
+  };
+
+  const handleCloseModalExtern = () => {
+    setOpenModalExtern(false);
+  };
 
   const handleFormSubmit = (values) => {
     console.log("Individual registered successfully:", values);
@@ -48,6 +58,21 @@ const Home = () => {
       })
       .catch((error) => {
         console.error("Error registering individual:", error);
+      });
+  };
+  const handleFormSubmitFormateur = (values) => {
+    console.log("Formateur registered successfully:", values);
+    axios
+      .post(
+        `http://localhost:8080/formateur/newFormateurExtern/${selectedFormationId}`,
+        values
+      )
+      .then((response) => {
+        console.log("Formateur registered successfully:", response.data);
+        handleCloseModalExtern();
+      })
+      .catch((error) => {
+        console.error("Error registering Formateur:", error);
       });
   };
 
@@ -127,7 +152,6 @@ const Home = () => {
             style={{ margin: "8px" }}
           />
           <TextField
-            label="Date"
             type="date"
             value={dateFilter}
             onChange={(e) => setDateFilter(e.target.value)}
@@ -154,10 +178,40 @@ const Home = () => {
               city={formation.city}
               category={formation.category}
               onOpenModal={handleOpenModal}
+              onOpenModalExtern={handleOpenModalExtern}
               formationId={formation.id}
             />
           ))}
 
+          <Dialog open={openModalExtern} onClose={handleCloseModalExtern}>
+            <DialogTitle
+              sx={{
+                backgroundColor: colors.blueAccent[700],
+                color: colors.grey[100],
+                fontSize: "20px",
+                fontWeight: "bold",
+                padding: "10px 20px",
+              }}
+            >
+              Register As Formater
+            </DialogTitle>
+            <DialogContent
+              sx={{
+                backgroundColor: colors.primary[400],
+                color: colors.grey[100],
+                fontSize: "14px",
+                fontWeight: "bold",
+                padding: "10px 20px",
+              }}
+            >
+              <Box m="20px">
+                <FormateurExternForm
+                  onSubmit={handleFormSubmitFormateur}
+                  onClick={handleCloseModalExtern}
+                />
+              </Box>
+            </DialogContent>
+          </Dialog>
           <Dialog open={openModal} onClose={handleCloseModal}>
             <DialogTitle
               sx={{
