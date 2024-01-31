@@ -20,7 +20,15 @@ public class UserService {
         admin.setEmail("admin@admin");
         admin.setRoles("ROLE_ADMIN");
         admin.setPassword(passwordEncoder.encode("1234"));
-        userrepository.save(admin);  
+        userrepository.save(admin);
+        UserInfo assistent =new UserInfo();
+        assistent.setId(2);
+        assistent.setFirstname("assistent");
+        assistent.setLastname("assistent");
+        assistent.setEmail("assistent@assistent");
+        assistent.setRoles("ROLE_ASSISTENT");
+        assistent.setPassword(passwordEncoder.encode("1234"));
+        userrepository.save(assistent); 
     }
   
   

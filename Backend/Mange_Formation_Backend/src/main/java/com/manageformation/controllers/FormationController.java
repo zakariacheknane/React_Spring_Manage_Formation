@@ -59,6 +59,7 @@ public class FormationController {
 		 return formations;
 	 }
 	@GetMapping("/count")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public Long countFormations(){
 		return formationService.countFormations();
 	}

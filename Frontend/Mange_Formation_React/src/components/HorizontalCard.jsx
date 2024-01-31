@@ -59,10 +59,10 @@ const HorizontalCard = ({ title, nbHours, cost, objective, city, category,onOpen
           <strong>Category:</strong> {category}
         </Typography>
         <Button variant="outlined" color="primary" onClick={handleRegisterClick}   style={{ marginTop: theme.spacing(2), marginRight: theme.spacing(1) }} >
-          Inscrive as Individu
+        Enroll as Individu
         </Button>
         <Button variant="outlined" color="primary" onClick={handleRegisterFormateurClick} style={{ marginTop: theme.spacing(2)}}>
-          Inscrive as Formater
+          Enroll as Formater
         </Button>
       </CardContent>
     </Card>

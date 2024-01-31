@@ -13,6 +13,7 @@ import Enterprise from "./scenes/enterprise";
 import Planification from "./scenes/planification";
 import Home from "./scenes/home";
 import Feedback from "./scenes/feedback";
+import TopbarHome from "./scenes/global/TopbarHome";
 
 
 function App() {
@@ -26,11 +27,17 @@ function App() {
         <Route
           path="/login"
           element={
+            <ThemeProvider theme={theme}>
+            <ColorModeContext.Provider value={colorMode}>
+              <CssBaseline />
             <div className="app">
               <main className="content">
+              <TopbarHome />
                 <Login />
               </main>
             </div>
+            </ColorModeContext.Provider>
+             </ThemeProvider>
           }
         />
        <Route
@@ -56,7 +63,7 @@ function App() {
               <CssBaseline />
             <div className="app">
               <main className="content">
-              <Topbar />
+              <TopbarHome />
                 <Home />
               </main>
             </div>

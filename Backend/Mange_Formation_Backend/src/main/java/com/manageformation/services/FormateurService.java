@@ -21,7 +21,7 @@ public class FormateurService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 	public String addFormateurIntern(Formateur formateurInfo) {
-		  formateurInfo.setPassword(passwordEncoder.encode(formateurInfo.getPassword()));
+		  formateurInfo.setPassword(passwordEncoder.encode("formateur1234"));
 		  formateurInfo.setRoles("ROLE_FORMATEUR");
 		  formateurInfo.setType("INTERN");
 		  try {

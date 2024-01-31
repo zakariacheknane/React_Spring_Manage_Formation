@@ -28,10 +28,12 @@ public class PlanificationController {
 	@Autowired
     private PlanificationService planificationService;
 	@GetMapping("/all")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public List<Planification> getAllPlanifications() {
 	   return planificationService.getAllPlanifications();
 	  }
 	@PostMapping("/planify")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public ResponseEntity<String> planifyFormation(
 	    @RequestParam LocalDate startDate,
 	    @RequestParam LocalDate endDate,

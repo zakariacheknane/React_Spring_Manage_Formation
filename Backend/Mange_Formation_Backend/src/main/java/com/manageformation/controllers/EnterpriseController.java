@@ -48,6 +48,7 @@ public class EnterpriseController {
 	}
 
 	@GetMapping("/count")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public Long countEnterprises(){
 		return enterpriseService.countEnterprises();
 	}

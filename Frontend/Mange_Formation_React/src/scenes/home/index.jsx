@@ -102,7 +102,7 @@ const Home = () => {
         <div
           style={{
             width: "1000px",
-            marginTop: "3em",
+            marginTop: "1em",
             marginLeft: "5em",
             float: "left",
             color: "white",

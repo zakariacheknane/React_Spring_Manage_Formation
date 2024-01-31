@@ -24,20 +24,21 @@ public class FormateurController {
     private FormateurService formateurservice;
 	@PostMapping("/newFormateurIntern")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String addNewFormateur(@RequestBody Formateur formateurInfo) {
+    public String addNewFormateurIntern(@RequestBody Formateur formateurInfo) {
         return formateurservice.addFormateurIntern(formateurInfo);
     }
 	@PutMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT','ROLE_FORMATEUR')")
 	public Formateur updateFormateur(@RequestBody Formateur formateurInfo) {
 		return formateurservice.updateFormateur(formateurInfo);
 	}
 	@DeleteMapping("/delete/{id}")
-	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	 @PreAuthorize("hasAuthority('ROLE_ADMIN','ROLE_FORMATEUR')")
 	public String deleteFormateur(@PathVariable int id) {
 	 return formateurservice.deleteFormateurById(id);
 	}
 	@GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public List<Formateur> getAllFormateurs(){
 		return formateurservice.getAllFormateurs();
 	}
@@ -46,6 +47,7 @@ public class FormateurController {
         return formateurservice.addFormateurExtern(formateurInfo,formation_id);
     }
 	@GetMapping("/count")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public Long countFormateurs(){
 		return formateurservice.countFormateurs();
 	}

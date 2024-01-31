@@ -19,8 +19,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.manageformation.filter.JwtAuthFilter;
@@ -38,10 +36,9 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    	String[] permitAllRoutes = {"/users/authenticate","/formateur/newFormateurExtern/**","/formateur/count","/individu/count","/formateur/newFormateurIntern",
-    			"/formation/all","/individu/registration/**","/planification/all","/planification/planify","/team/**","/formation/findByCategory/**",
-    			"/formation/findByCity/**","/formation/findByDate/**","/feedback/add","/enterprise/count","/formation/count"};
-    	 String[] authenticatedRoutes = {"/users/**","/formation/**","/formateur/**","/enterprise/**","/individu/**","/feedback/**"};
+    	String[] permitAllRoutes = {"/users/authenticate","/formation/all","/formation/findByCity/**","/formation/findByDate/**",
+    	        "/formation/findByCategory/**","/formateur/newFormateurExtern/**","/individu/registration/**","/feedback/add"};
+    	 String[] authenticatedRoutes = {"/users/**","/formation/**","/formateur/**","/enterprise/**","/individu/**","/feedback/**","/planification/**","/team/**",};
     	return http.csrf().disable()
     			.cors().and() 
                 .authorizeHttpRequests()
@@ -74,7 +71,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("*");  // You may want to specify allowed origins
+        configuration.addAllowedOrigin("*");  
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("OPTIONS");
         configuration.addAllowedMethod("GET");

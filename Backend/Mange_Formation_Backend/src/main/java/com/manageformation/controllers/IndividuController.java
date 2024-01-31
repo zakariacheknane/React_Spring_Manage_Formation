@@ -49,6 +49,7 @@ public class IndividuController {
 		return individuService.getAllIndividus();
 	}
 	@GetMapping("/count")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public long countIndividu() {
 	    return individuService.countIndividu();
 	}
