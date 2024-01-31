@@ -16,20 +16,36 @@ const Dashboard = () => {
   const [formateurCount, setFormateurCount] = useState(0);
   const [enterpriseCount, setEnterpriseCount] = useState(0);
   const [individuCount, setIndividuCount] = useState(0);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const formationResponse = await axios.get("http://localhost:8080/formation/count");
+        const formationResponse = await axios.get("http://localhost:8080/formation/count",{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setFormationCount(formationResponse.data);
 
-        const formateurResponse = await axios.get("http://localhost:8080/formateur/count");
+        const formateurResponse = await axios.get("http://localhost:8080/formateur/count",{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setFormateurCount(formateurResponse.data);
 
-        const enterpriseResponse = await axios.get("http://localhost:8080/enterprise/count");
+        const enterpriseResponse = await axios.get("http://localhost:8080/enterprise/count",{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setEnterpriseCount(enterpriseResponse.data);
 
-        const individuResponse = await axios.get("http://localhost:8080/individu/count");
+        const individuResponse = await axios.get("http://localhost:8080/individu/count",{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setIndividuCount(individuResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -37,22 +53,19 @@ const Dashboard = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array to ensure the effect runs only once on component mount
+  }, []); 
 
   return (
     <Box m="20px">
-      {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
       </Box>
-      {/* GRID & CHARTS */}
       <Box
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
         gridAutoRows="140px"
         gap="20px"
       >
-        {/* ROW 1 */}
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}

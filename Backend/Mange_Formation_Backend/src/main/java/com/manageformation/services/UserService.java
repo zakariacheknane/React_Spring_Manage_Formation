@@ -1,7 +1,10 @@
 package com.manageformation.services;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.manageformation.entities.Formateur;
 import com.manageformation.entities.UserInfo;
 import com.manageformation.repositories.UserInfoRepository;
 import jakarta.annotation.PostConstruct;
@@ -30,6 +33,17 @@ public class UserService {
         assistent.setPassword(passwordEncoder.encode("1234"));
         userrepository.save(assistent); 
     }
+	public String addAssitant(UserInfo assistent) {
+		assistent.setPassword(passwordEncoder.encode("assitent1234"));
+		assistent.setRoles("ROLE_ASSISTENT");
+		 
+		  try {
+			  userrepository.save(assistent);
+		    	}catch (DataIntegrityViolationException e) {
+		            return "Error: Email already exists. Please choose a different email.";
+		        }
+		    	return "Assistent  added succesfuly";	
+		    }
   
   
 }

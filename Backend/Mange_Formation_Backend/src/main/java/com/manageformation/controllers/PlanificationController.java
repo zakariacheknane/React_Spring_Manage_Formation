@@ -70,4 +70,10 @@ public class PlanificationController {
 	            return new ResponseEntity<>("Error deleting formation", HttpStatus.INTERNAL_SERVER_ERROR);
 	        }
 	    }
+	    @GetMapping("/deleteEndPlanification")
+	    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+	    public String deleteFormationEnd() {
+	    	return planificationService.deletePlanificationEnd();
+	    }   
+
 	}

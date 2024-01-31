@@ -14,7 +14,7 @@ import axios from "axios";
 
 const PlanificationForm = ({ onSubmit, onClick, initialValues, updateOrcreate }) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
-
+  const token = localStorage.getItem("token");
   const [formations, setFormations] = useState([]);
   const [formateurs, setFormateurs] = useState([]);
   const [entreprises, setEntreprises] = useState([]);
@@ -24,8 +24,18 @@ const PlanificationForm = ({ onSubmit, onClick, initialValues, updateOrcreate })
     const fetchData = async () => {
       try {
         const formationsResponse = await axios.get("http://localhost:8080/formation/all");
-        const formateursResponse = await axios.get("http://localhost:8080/formateur/all");
-        const entreprisesResponse = await axios.get("http://localhost:8080/enterprise/all");
+        const formateursResponse = await axios.get("http://localhost:8080/formateur/all",{
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type':'application/json',
+          },
+        });
+        const entreprisesResponse = await axios.get("http://localhost:8080/enterprise/all",{
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type':'application/json',
+          },
+        });
         setFormations(formationsResponse.data);
         setFormateurs(formateursResponse.data);
         setEntreprises(entreprisesResponse.data);
@@ -41,7 +51,12 @@ const PlanificationForm = ({ onSubmit, onClick, initialValues, updateOrcreate })
     const fetchTeams = async () => {
       if (selectedFormationId) {
         try {
-          const teamsResponse = await axios.get(`http://localhost:8080/team/findbyFormation/${selectedFormationId}`);
+          const teamsResponse = await axios.get(`http://localhost:8080/team/findbyFormation/${selectedFormationId}`,{
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type':'application/json',
+            },
+          });
           setTeams(teamsResponse.data);
         } catch (error) {
           console.error("Error fetching teams:", error);
