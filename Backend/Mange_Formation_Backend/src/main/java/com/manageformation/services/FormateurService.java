@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +24,22 @@ public class FormateurService {
 		  formateurInfo.setPassword(passwordEncoder.encode(formateurInfo.getPassword()));
 		  formateurInfo.setRoles("ROLE_FORMATEUR");
 		  formateurInfo.setType("INTERN");
-		  formateurrepo.save(formateurInfo);
-	      return "Formateur added to system ";
-	  }
+		  try {
+			  formateurrepo.save(formateurInfo);
+		    	}catch (DataIntegrityViolationException e) {
+		            return "Error: Email already exists. Please choose a different email.";
+		        }
+		    	return "Formater Interne added succesfuly";	
+		    }
+	  
 	public List<Formateur> getAllFormateurs(){
 		return formateurrepo.findAll();
 		 
 	}
 	public Formateur updateFormateur( Formateur formateurInfo) {
+		formateurInfo.setPassword(passwordEncoder.encode(formateurInfo.getPassword()));
+		formateurInfo.setRoles(formateurInfo.getRoles());
+		formateurInfo.setType(formateurInfo.getType());
 		return formateurrepo.save(formateurInfo);
 	}
 	public String deleteFormateurById( int id) {
@@ -43,7 +52,11 @@ public class FormateurService {
 		  formateurInfo.setRoles("ROLE_FORMATEUR");
 		  formateurInfo.setType("EXTERN");
 		  formateurInfo.setFormation(formation.get());
+		  try {
 		  formateurrepo.save(formateurInfo);
+		  }catch (DataIntegrityViolationException e) {
+	            return "Error: Email already exists. Please choose a different email.";
+	        }
 	      return "Formateur added to system ";
 	  }
     public long countFormateurs() {

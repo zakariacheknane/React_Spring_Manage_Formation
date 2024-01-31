@@ -21,8 +21,15 @@ import com.manageformation.services.EnterpriseService;
 @RequestMapping("/enterprise")
 @CrossOrigin("*")
 public class EnterpriseController {
+	
 	@Autowired
 	private EnterpriseService enterpriseService;
+	
+	@GetMapping("/all")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+	public List<Enterprise> getAllEnterprise(){
+		return enterpriseService.getAllEnterprises();
+	}
 	@PostMapping("/add")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public Enterprise addEnterprise(@RequestBody Enterprise enterpriseInfo) {
@@ -39,10 +46,7 @@ public class EnterpriseController {
 	public String deleteEnterprise(@PathVariable int id) {
 	 return enterpriseService.deleteEnterpriseById(id);
 	}
-	@GetMapping("/all")
-	public List<Enterprise> getAllEnterprise(){
-		return enterpriseService.getAllEnterprises();
-	}
+
 	@GetMapping("/count")
 	public Long countEnterprises(){
 		return enterpriseService.countEnterprises();

@@ -17,6 +17,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import com.manageformation.filter.JwtAuthFilter;
 
 @Configuration
@@ -32,11 +38,16 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable()
+    	String[] permitAllRoutes = {"/users/authenticate","/formateur/newFormateurExtern/**","/formateur/count","/individu/count","/formateur/newFormateurIntern",
+    			"/formation/all","/individu/registration/**","/planification/all","/planification/planify","/team/**","/formation/findByCategory/**",
+    			"/formation/findByCity/**","/formation/findByDate/**","/feedback/add","/enterprise/count","/formation/count"};
+    	 String[] authenticatedRoutes = {"/users/**","/formation/**","/formateur/**","/enterprise/**","/individu/**","/feedback/**"};
+    	return http.csrf().disable()
+    			.cors().and() 
                 .authorizeHttpRequests()
-                .requestMatchers("/users/authenticate","/formateur/newFormateurExtern/**","/formateur/count","/individu/count","/formateur/newFormateurIntern","/formation/all","/formateur/all","/enterprise/all","/individu/registration/**","/planification/all","/planification/planify","/team/**","/formation/findByCategory/**","/formation/findByCity/**","/formation/findByDate/**","/feedback/add","/enterprise/count","/formation/count").permitAll()
+                .requestMatchers(permitAllRoutes).permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/users/**","/formation/**","/formateur/**","/enterprise/**","/individu/**","/feedback/**")
+                .authorizeHttpRequests().requestMatchers(authenticatedRoutes)
                 .authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -59,6 +70,21 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
+    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("*");  // You may want to specify allowed origins
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("OPTIONS");
+        configuration.addAllowedMethod("GET");
+        configuration.addAllowedMethod("POST");
+        configuration.addAllowedMethod("PUT");
+        configuration.addAllowedMethod("DELETE");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return  source;
     }
 
 }
