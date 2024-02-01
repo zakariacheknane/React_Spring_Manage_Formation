@@ -9,7 +9,7 @@ const TopbarHome = () => {
   const colors = tokens(theme.palette.mode);
   
   const handleFormationClick = () => {
-    navigate("/home");
+    navigate("/");
   };
 
   const handleLoginClick = () => {

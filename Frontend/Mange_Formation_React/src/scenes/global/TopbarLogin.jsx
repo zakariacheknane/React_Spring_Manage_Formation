@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const TopbarLogin= () => {
   const navigate = useNavigate();
   const handleFormationClick = () => {
-    navigate("/home");
+    navigate("/");
   };
 
 
