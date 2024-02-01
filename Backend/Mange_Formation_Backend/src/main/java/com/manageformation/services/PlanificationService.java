@@ -39,20 +39,33 @@ public class PlanificationService {
 	    public List<Planification> getAllPlanifications() {
 	        return planificationRepository.findAll();
 	    }
-	    public Planification planifyFormation(LocalDate startDate, LocalDate endDate, int formationId, int formateurId, int entrepriseId,int team_id) {
+	    public Planification planifyFormation(LocalDate startDate, LocalDate endDate, int formationId, int formateurId, String entrepriseId, String teamId) {
 	        Optional<Formation> formation = formationRep.findById(formationId);
 	        Optional<Formateur> formateur = formateurrepo.findById(formateurId);
-	        Optional<Enterprise> entreprise = enterpriseRep.findById(entrepriseId);
-	        Optional<Team> team = teamrep.findById(team_id);
-	            Planification pl = new Planification();
-	            pl.setStartDate(startDate);
-	            pl.setEndDate(endDate);
-	            pl.setFormation(formation.get());
-	            pl.setFormateur(formateur.get());
-	            pl.setEntreprise(entreprise.get());
-	            pl.setGroup(team.get());
-	            return planificationRepository.save(pl);
+
+	        Planification pl = new Planification();
+	        pl.setStartDate(startDate);
+	        pl.setEndDate(endDate);
+	        pl.setFormation(formation.orElse(null));
+	        pl.setFormateur(formateur.orElse(null));
+
+	        if (entrepriseId != null && !entrepriseId.isEmpty()) {
+	            Optional<Enterprise> entreprise = enterpriseRep.findById(Integer.parseInt(entrepriseId));
+	            pl.setEntreprise(entreprise.orElse(null));
+	        } else {
+	            pl.setEntreprise(null);
 	        }
+
+	        if (teamId != null && !teamId.isEmpty()) {
+	            Optional<Team> team = teamrep.findById(Integer.parseInt(teamId));
+	            pl.setGroup(team.orElse(null));
+	        } else {
+	            pl.setGroup(null);
+	        }
+
+	        return planificationRepository.save(pl);
+	    }
+
 
 	    public Planification updatePlanification( Planification updatedPlanification) {
 	        return planificationRepository.save(updatedPlanification);

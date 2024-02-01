@@ -76,8 +76,8 @@ const PlanificationForm = ({ onSubmit, onClick, initialValues, updateOrcreate })
         endDate: "",
         formation_id: "",
         formateur_id: "",
-        Entreprise_id: null,
-        Team_id: null,
+        Entreprise_id: "",
+        Team_id: "",
         ...initialValues,
       }}
     >

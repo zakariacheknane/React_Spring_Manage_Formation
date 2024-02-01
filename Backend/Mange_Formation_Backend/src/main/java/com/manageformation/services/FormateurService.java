@@ -98,4 +98,8 @@ public class FormateurService {
     	
         return "welcome";
     }
+    public Formateur findbyEmail(String email) {
+    	Optional<Formateur> formateur = formateurrepo.findByEmail(email);
+     return formateur.get();        
+    }
 }

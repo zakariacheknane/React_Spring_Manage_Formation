@@ -39,8 +39,8 @@ public class PlanificationController {
 	    @RequestParam LocalDate endDate,
 	    @RequestParam int formationId,
 	    @RequestParam int formateurId,
-	    @RequestParam int entrepriseId,
-	    @RequestParam int teamId
+	    @RequestParam String entrepriseId,
+	    @RequestParam String teamId
 	) {
 	    try {
 	        Planification plannedFormation = planificationService.planifyFormation(startDate, endDate, formationId, formateurId, entrepriseId,teamId);

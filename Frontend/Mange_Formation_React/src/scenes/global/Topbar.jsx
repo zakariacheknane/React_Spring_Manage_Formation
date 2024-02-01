@@ -4,13 +4,11 @@ import {
   ColorModeContext,
   tokens
 } from "../../theme";
-import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import SearchIcon from "@mui/icons-material/Search";
 import { useDispatch } from "react-redux";
 import { logout as logoutAction } from "../../Auth/auth.action";
 import { useNavigate } from "react-router-dom";

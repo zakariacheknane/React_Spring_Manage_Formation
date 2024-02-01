@@ -31,8 +31,8 @@ public class IndividuController {
 	public String addIndividu(@RequestBody Individu individuInfo,@PathVariable int formation_id ) {
 		Individu individu=individuService.registration(individuInfo,formation_id);
 		String subject = "Formation : " + individu.getFormation().getName_formation();
-		 String body = "Welcome  " + individu.getFirstName()+" "+individu.getLastName() + ",<br/><br/>"+
-	                "Thank you for registering for the" + individu.getFormation().getName_formation() + "training,<br/><br/>" +
+		 String body = "Welcome  " + individu.getFirstName()+" "+individu.getLastName() + ",\n\n"+
+	                "Thank you for registering for the  " + individu.getFormation().getName_formation() + "training,\n\n"+
 	                "We will contact you when the training begins.";
 		emailService.sendMail(individu.getEmail(), subject, body);
 		return "welcome";

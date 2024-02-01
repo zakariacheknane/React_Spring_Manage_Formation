@@ -33,9 +33,7 @@ const Profile = () => {
     setSuccessMessage("");
   };
 
-  const validateConfirmPassword = (value) => {
-    return value === initialValues.password ? undefined : "Passwords do not match";
-  };
+
 
   const handleFormSubmit = async (values) => {
     try {

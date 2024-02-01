@@ -1,24 +1,14 @@
-import React from "react";
-import {
-  Grid,
-  Box,
-  Button,
-  TextField,
-  Typography,
-  Container,
-  Avatar,
-  ThemeProvider,
-  createTheme,
-  Stack,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Grid, Box, Button, TextField, Typography, Container, Avatar, ThemeProvider, createTheme, Stack } from "@mui/material";
 import Sousbg from "../../Assets/sousbg.png";
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUserAction } from "../../Auth/auth.action";
 import { useTheme } from "@emotion/react";
 import { tokens } from "../../theme";
+import { LOGIN_FAILURE, LOGIN_REQUEST } from "../../Auth/auth.actionType";
 
 const darkTheme = createTheme({
   palette: {
@@ -44,9 +34,21 @@ export const Login = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const handleSubmit = (values) => {
-    dispatch(loginUserAction({ data: values }));
-    navigate("/Dashboard");
+
+  // Use useSelector to access the erreur property from the Redux state
+  const error = useSelector((state) => state.auth.erreur);
+
+  const handleSubmit = async (values) => {
+    try {
+      // Clear previous error on each submit
+      dispatch({ type: LOGIN_REQUEST }); // Assuming you dispatch LOGIN_REQUEST at the start of the login process
+
+      dispatch(loginUserAction({ data: values }));
+      navigate("/Dashboard");
+    } catch (error) {
+      // Set the error state if an error occurs during login
+      dispatch({ type: LOGIN_FAILURE, payload: error.message || "An error occurred" });
+    }
   };
 
   return (
@@ -97,6 +99,16 @@ export const Login = () => {
                   </Box>
 
                   <Box height={35} />
+                
+                  {error && (
+  <Typography
+    variant="body1"
+    color="error"
+    sx={{ ml: "3em", mr: "3em" }}
+  >
+    {typeof error.message === 'string' ? error.message : "Invalid Email or Password"}
+  </Typography>
+)}
                   <Formik
                     onSubmit={handleSubmit}
                     initialValues={initialValues}

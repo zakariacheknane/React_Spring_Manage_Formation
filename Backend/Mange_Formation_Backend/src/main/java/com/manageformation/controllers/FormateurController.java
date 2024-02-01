@@ -62,4 +62,9 @@ public class FormateurController {
 	    	
 	        return formateurservice.AcceptFormateurAndSendEmail(formateur);
 	    }
+		@GetMapping("/findByEmail/{email}")
+	    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT','ROLE_FORMATEUR')")
+		public Formateur findByEmail(@PathVariable String email){
+			return formateurservice.findbyEmail(email);
+		}
 }
