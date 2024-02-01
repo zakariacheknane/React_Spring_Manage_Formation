@@ -48,6 +48,7 @@ function App() {
               <CssBaseline />
             <div className="app">
               <main className="content">
+              <TopbarHome />
                 <Feedback />
               </main>
             </div>

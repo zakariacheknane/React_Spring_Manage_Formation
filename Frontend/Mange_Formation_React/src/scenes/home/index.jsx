@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import HorizontalCard from "../../components/HorizontalCard";
 import IndividuForm from "../../components/IndividuForm";
+import FormateurExternForm from "../../components/FormateurExternForm";
 import {
   Dialog,
   DialogTitle,
@@ -9,10 +10,11 @@ import {
   DialogContent,
   Box,
   TextField,
+  Pagination,
 } from "@mui/material";
 import { tokens } from "../../theme";
 import form from "../../Assets/5293.png";
-import FormateurExternForm from "../../components/FormateurExternForm";
+
 const Home = () => {
   const [formations, setFormations] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -21,6 +23,9 @@ const Home = () => {
   const [cityFilter, setCityFilter] = useState("");
   const [dateFilter, setDateFilter] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -36,6 +41,7 @@ const Home = () => {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+
   const handleOpenModalExtern = (formationId) => {
     setOpenModalExtern(true);
     setSelectedFormationId(formationId);
@@ -60,6 +66,7 @@ const Home = () => {
         console.error("Error registering individual:", error);
       });
   };
+
   const handleFormSubmitFormateur = (values) => {
     console.log("Formateur registered successfully:", values);
     axios
@@ -94,6 +101,14 @@ const Home = () => {
       .catch((error) => {
         console.error("Error fetching filtered formations:", error);
       });
+  };
+
+  const indexOfLastFormation = currentPage * itemsPerPage;
+  const indexOfFirstFormation = indexOfLastFormation - itemsPerPage;
+  const currentFormations = formations.slice(indexOfFirstFormation, indexOfLastFormation);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
   };
 
   return (
@@ -168,7 +183,7 @@ const Home = () => {
 
         </div>
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {formations.map((formation) => (
+        {currentFormations.map((formation) => (
             <HorizontalCard
               key={formation.id}
               title={formation.name_formation}
@@ -241,6 +256,20 @@ const Home = () => {
               </Box>
             </DialogContent>
           </Dialog>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "20px", width: "100%" }}>
+          <Pagination
+  count={Math.ceil(formations.length / itemsPerPage)}
+  page={currentPage}
+  onChange={handlePageChange}
+  color="primary"
+  sx={{
+    '& .Mui-selected': {
+      backgroundColor: colors.primary[300],
+      color: '#ffffff',
+    },
+  }}
+/>
+</div>
         </div>
       </div>
     </>
