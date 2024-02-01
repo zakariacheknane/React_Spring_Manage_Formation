@@ -11,7 +11,7 @@ import {
   createTheme,
   Stack,
 } from "@mui/material";
-import {useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 import { tokens } from "../../theme";
 import Sousbg from "../../Assets/sousbg.png";
@@ -33,7 +33,7 @@ const center = {
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -42,7 +42,7 @@ const ChangePassword = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const userId = searchParams.get("iduser");
-    setidUser(userId|| "");
+    setidUser(userId || "");
   }, [location.search]);
 
   const handleChangePassword = async () => {
@@ -51,12 +51,15 @@ const ChangePassword = () => {
         setError("Passwords do not match");
         return;
       }
-      const response = await fetch(`http://localhost:8080/users/updatePassword/${idUser}/${password}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `http://localhost:8080/users/updatePassword/${idUser}/${password}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.ok) {
         console.log("Password updated successfully");
@@ -66,10 +69,9 @@ const ChangePassword = () => {
         setError(errorMessage || "Failed to update password");
       }
     } catch (error) {
-        setError("Error updating password");
+      setError("Error updating password");
     }
   };
-
 
   return (
     <>
@@ -124,7 +126,6 @@ const ChangePassword = () => {
                     </Box>
                     <Box height={35} />
                     <Grid container spacing={1}>
-                      
                       <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                         <TextField
                           required
@@ -136,11 +137,15 @@ const ChangePassword = () => {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                         />
-                          {error && (
-                <Typography color="error" variant="body2" sx={{ mt: 2 }}>
-                  {error}
-                </Typography>
-              )}
+                        {error && (
+                          <Typography
+                            color="error"
+                            variant="body2"
+                            sx={{ mt: 2 }}
+                          >
+                            {error}
+                          </Typography>
+                        )}
                       </Grid>
                       <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                         <TextField

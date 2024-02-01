@@ -16,6 +16,7 @@ import Feedback from "./scenes/feedback";
 import TopbarHome from "./scenes/global/TopbarHome";
 import TopbarLogin from "./scenes/global/TopbarLogin";
 import ChangePassword from "./scenes/changePassword";
+import Individu from "./scenes/individu";
 
 
 function App() {
@@ -125,6 +126,7 @@ function App() {
                         <Route path="/formateur" element={<Formateur />} />
                         <Route path="/enterprise" element={<Enterprise />} />
                         <Route path="/planification" element={<Planification />} />
+                        <Route path="/individu" element={<Individu />} />
                       </Routes>
                     </main>
                   </div>
