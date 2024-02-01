@@ -33,11 +33,11 @@ public class Planification {
     private Formateur formateur;
     
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "Entreprise_id")
+    @JoinColumn(name = "Entreprise_id", nullable = true)
     private Enterprise entreprise;
     
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "group_id", nullable = true)
     Team group;
    
 }

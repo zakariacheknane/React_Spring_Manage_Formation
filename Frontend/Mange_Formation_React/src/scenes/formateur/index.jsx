@@ -18,6 +18,7 @@ import { columnsFormateur } from "../../Data/columns";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FormateurForm from "../../components/FormateurForm ";
+import { useUserContext } from "../../Context/UserContext";
 const Formateur = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -26,6 +27,9 @@ const Formateur = () => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedFormateur, setSelectedFormateur] = useState(null);
   const token = localStorage.getItem("token");
+  const { isUserAdmin, isUserAssistent } = useUserContext();
+  const isAdmin = isUserAdmin();
+  const isAssistent = isUserAssistent();
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:8080/formateur/all", {
@@ -129,7 +133,7 @@ const Formateur = () => {
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="FORMATEURS" subtitle="List of Formateur" />
-        <Box>
+        {isAdmin  ?  <Box>
           <Button
             onClick={handleOpenModalAdd}
             sx={{
@@ -143,7 +147,7 @@ const Formateur = () => {
             <AddIcon sx={{ mr: "10px" }} />
             Add Formateur Intern
           </Button>
-        </Box>
+        </Box>:null}
       </Box>
 
       <Box

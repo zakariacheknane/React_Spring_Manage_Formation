@@ -19,7 +19,8 @@ export const loginUserAction = (loginData) => async (dispatch) => {
     console.log("login success",data)
   } catch (error) {
     console.log("erreur")
-    dispatch({type:LOGIN_FAILURE,payload:error})
+    const err="Invalid Email or Password "
+    dispatch({type:LOGIN_FAILURE,payload:err})
   }
 };
 export const logout=()=>async (dispatch) =>{

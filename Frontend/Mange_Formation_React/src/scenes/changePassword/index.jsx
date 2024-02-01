@@ -1,38 +1,75 @@
-import React, { useState } from "react";
-import { Grid, Box, Button, TextField, Typography, Container, Avatar, ThemeProvider, createTheme, Stack } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import {
+  Grid,
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Container,
+  Avatar,
+  ThemeProvider,
+  createTheme,
+  Stack,
+} from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 import { tokens } from "../../theme";
 import Sousbg from "../../Assets/sousbg.png";
 
 const darkTheme = createTheme({
   palette: {
-    mode: "dark"
+    mode: "dark",
   },
 });
 
 const center = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '100%',
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100%",
 };
 
-const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
+const ChangePassword = () => {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [idUser, setidUser] = useState("");
+  const location = useLocation();
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const userId = searchParams.get("iduser");
+    setidUser(userId || "");
+  }, [location.search]);
 
-  const handleSendResetLink = async () => {
+  const handleChangePassword = async () => {
     try {
-      const response = await fetch(`http://localhost:8080/users/sendPasswordResetEmail/${email}`);
-      const resetLink = await response.text();
-      console.log('Reset Link:', resetLink);
-      navigate(`/login`);
+      if (password !== confirmPassword) {
+        setError("Passwords do not match");
+        return;
+      }
+      const response = await fetch(
+        `http://localhost:8080/users/updatePassword/${idUser}/${password}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        console.log("Password updated successfully");
+        navigate("/login");
+      } else {
+        const errorMessage = await response.text();
+        setError(errorMessage || "Failed to update password");
+      }
     } catch (error) {
-      console.error('Error sending reset link:', error);
+      setError("Error updating password");
     }
   };
 
@@ -77,11 +114,14 @@ const ForgotPassword = () => {
                     <Box height={35} />
                     <Box sx={center}>
                       <Avatar
-                        sx={{ ml: "35px", mb: "4px", bgcolor: "#ffffff" }}>
-                      </Avatar>
-                      <Typography component="h1" variant="h4"
-                        style={{ marginLeft: "40px", }} >
-                        Reset Password
+                        sx={{ ml: "35px", mb: "4px", bgcolor: "#ffffff" }}
+                      ></Avatar>
+                      <Typography
+                        component="h1"
+                        variant="h4"
+                        style={{ marginLeft: "40px" }}
+                      >
+                        Change Your Password
                       </Typography>
                     </Box>
                     <Box height={35} />
@@ -90,12 +130,33 @@ const ForgotPassword = () => {
                         <TextField
                           required
                           fullWidth
-                          id="username"
-                          label="Email"
-                          name="email"
-                          autoComplete="username"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
+                          id="password"
+                          label="Password"
+                          type="password"
+                          autoComplete="new-password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
+                        {error && (
+                          <Typography
+                            color="error"
+                            variant="body2"
+                            sx={{ mt: 2 }}
+                          >
+                            {error}
+                          </Typography>
+                        )}
+                      </Grid>
+                      <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
+                        <TextField
+                          required
+                          fullWidth
+                          id="confirmPassword"
+                          label="Confirm Password"
+                          type="password"
+                          autoComplete="new-password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                       </Grid>
                       <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
@@ -110,11 +171,11 @@ const ForgotPassword = () => {
                             borderRadius: 28,
                             color: "#ffffff",
                             minWidth: "170px",
-                            backgroundColor: "#37C1DB"
+                            backgroundColor: "#37C1DB",
                           }}
-                          onClick={handleSendResetLink}
+                          onClick={handleChangePassword}
                         >
-                          SEND RESET LINK
+                          CHANGE PASSWORD
                         </Button>
                       </Grid>
                       <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
@@ -124,14 +185,14 @@ const ForgotPassword = () => {
                             variant="body1"
                             style={{ marginTop: "10px" }}
                           >
-                            Login to your Account.{" "}
+                            Back to{" "}
                             <span
                               style={{ color: "#beb4fb", cursor: "pointer" }}
                               onClick={() => {
                                 navigate("/login");
                               }}
                             >
-                              Sign In
+                              Login
                             </span>
                           </Typography>
                         </Stack>
@@ -148,4 +209,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ChangePassword;

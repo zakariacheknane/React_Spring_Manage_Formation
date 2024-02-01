@@ -41,6 +41,11 @@ export const columnsFormation = [
       headerName: "Team Seuil",
       flex: 1,
     },
+    {
+      field: "date",
+      headerName: "Date",
+      flex: 1,
+    },
   ];
   export const columnsFormateur = [
     { field: "id", headerName: "ID" },
@@ -104,6 +109,41 @@ export const columnsFormation = [
     {
       field: "email",
       headerName: "Email",
+      flex: 1,
+    },
+    
+  ];
+  export const columnsIndividu = [
+    { field: "id", headerName: "ID" },
+    {
+      field: "firstName",
+      headerName: "First Name",
+      flex: 1,
+      cellClassName: "name-column--cell",
+    },
+    {
+      field: "lastName",
+      headerName: "Last Name",
+      flex: 1,
+    },
+    {
+      field: "birthDate",
+      headerName: "Birth Date",
+      flex: 1,
+    },
+    {
+      field: "city",
+      headerName: "City",
+      flex: 1,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      flex: 1,
+    },
+    {
+      field: "phone",
+      headerName: "Phone Number",
       flex: 1,
     },
     

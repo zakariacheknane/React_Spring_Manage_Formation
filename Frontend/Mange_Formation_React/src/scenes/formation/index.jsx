@@ -18,6 +18,7 @@ import { columnsFormation } from "../../Data/columns";
 import FormationForm from "../../components/FormationForm ";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useUserContext } from "../../Context/UserContext";
 const Formation = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -25,6 +26,10 @@ const Formation = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedFormation, setSelectedFormation] = useState(null);
+  const { isUserAdmin, isUserAssistent } = useUserContext();
+  const isAdmin = isUserAdmin();
+  const isAssistent = isUserAssistent();
+
   const token = localStorage.getItem("token");
   const fetchData = async () => {
     try {
@@ -126,7 +131,8 @@ const Formation = () => {
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="FORMATIONS" subtitle="List of Formation" />
-        <Box>
+   
+        {isAdmin  ?<Box>
           <Button
             onClick={handleOpenModalAdd}
             sx={{
@@ -140,9 +146,9 @@ const Formation = () => {
             <AddIcon sx={{ mr: "10px" }} />
             Add Formation
           </Button>
-        </Box>
+        </Box>:null}
       </Box>
-
+        
       <Box
         m="40px 0 0 0"
         height="75vh"

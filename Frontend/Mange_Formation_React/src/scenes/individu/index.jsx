@@ -13,23 +13,18 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import axios from "axios";
-import AddIcon from "@mui/icons-material/Add";
-import { columnsEnterprise } from "../../Data/columns";
-import EditIcon from "@mui/icons-material/Edit";
+import { columnsIndividu } from "../../Data/columns";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EnterpriseForm from "../../components/EnterpriseForm";
-const Enterprise = () => {
+const Individu = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [rows, setRows] = useState([]);
-  const [openModal, setOpenModal] = useState(false);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-  const [selectedEnterprise, setSelectedEnterprise] = useState(null);
+  const [selectedIndividu, setSelectedIndividu] = useState(null);
   const token = localStorage.getItem("token");
-  
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/enterprise/all", {
+      const response = await axios.get("http://localhost:8080/individu/all", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -44,52 +39,12 @@ const Enterprise = () => {
     fetchData();
   }, []);
 
-  const handleFormSubmit = async (values) => {
-    try {
-      console.log("Submitting form with values:", values);
-
-      const response = await axios.post("http://localhost:8080/enterprise/add",values,{
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type':'application/json',
-          },
-        }
-      );
-      fetchData();
-      handleCloseModal();
-      console.log("Server response:", response.data);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-  };
-
-  const handleUpdate = async (values) => {
-    try {
-      console.log("Updating form with values:", values);
-
-      const response = await axios.put(
-        "http://localhost:8080/enterprise/update",
-        values,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      fetchData();
-      handleCloseModal();
-      console.log("Server response:", response.data);
-    } catch (error) {
-      console.error("Error updating form:", error);
-    }
-  };
-
   const handleDelete = async (id) => {
     try {
-      console.log("Deleting enterprise with ID:", id);
+      console.log("Deleting individu with ID:", id);
 
       const response = await axios.delete(
-        `http://localhost:8080/enterprise/delete/${id}`,
+        `http://localhost:8080/individu/delete/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -100,49 +55,22 @@ const Enterprise = () => {
       handleCloseDeleteModal();
       console.log("Server response:", response.data);
     } catch (error) {
-      console.error("Error deleting enterprise", error);
+      console.error("Error deleting individu:", error);
     }
   };
 
-  const handleOpenModal = (enterprise) => {
-    setSelectedEnterprise(enterprise);
-    setOpenModal(true);
-  };
-  const handleOpenModalAdd = () => {
-    setSelectedEnterprise(null);
-    setOpenModal(true);
-  };
-  const handleCloseModal = () => {
-    setSelectedEnterprise(null);
-    setOpenModal(false);
-  };
-  const handleOpenDeleteDialog = (enterprise) => {
-    setSelectedEnterprise(enterprise);
+  const handleOpenDeleteDialog = (individu) => {
+    setSelectedIndividu(individu);
     setOpenDeleteDialog(true);
   };
   const handleCloseDeleteModal = () => {
-    setSelectedEnterprise(null);
+    setSelectedIndividu(null);
     setOpenDeleteDialog(false);
   };
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="ENTERPRISES" subtitle="List of Enterprise" />
-        <Box>
-          <Button
-            onClick={handleOpenModalAdd}
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <AddIcon sx={{ mr: "10px" }} />
-            Add Enterprise
-          </Button>
-        </Box>
+        <Header title="Individus" subtitle="List of Individu" />
       </Box>
 
       <Box
@@ -182,21 +110,7 @@ const Enterprise = () => {
           components={{ Toolbar: GridToolbar }}
           rows={rows}
           columns={[
-            ...columnsEnterprise,
-            {
-              field: "update",
-              headerName: "Update",
-              sortable: false,
-              flex: 0.5,
-              renderCell: (params) => (
-                <IconButton
-               color={colors.blueAccent[700]}
-                onClick={() => handleOpenModal(params.row)}
-              >
-                <EditIcon />
-              </IconButton>
-              ),
-            },
+            ...columnsIndividu,
             {
                 field: "delete",
                 headerName: "Delete",
@@ -214,44 +128,6 @@ const Enterprise = () => {
           ]}
         />
       </Box>
-      <Dialog open={openModal} onClose={handleCloseModal}>
-        <DialogTitle
-          sx={{
-            backgroundColor: colors.blueAccent[700],
-            color: colors.grey[100],
-            fontSize: "20px",
-            fontWeight: "bold",
-            padding: "10px 20px",
-          }}
-        >
-          {selectedEnterprise ? "Update Enterprise" : "Add Enterprise"}
-        </DialogTitle>
-        <DialogContent
-          sx={{
-            backgroundColor: colors.primary[400],
-            color: colors.grey[100],
-            fontSize: "14px",
-            fontWeight: "bold",
-            padding: "10px 20px",
-          }}
-        >
-          <Box m="20px">
-          <EnterpriseForm
-              onSubmit={
-                selectedEnterprise ? handleUpdate : handleFormSubmit
-              }
-              onClick={handleCloseModal}
-              initialValues={{
-                ...selectedEnterprise,
-                id: selectedEnterprise ? selectedEnterprise.id : undefined,
-              }}
-              updateOrcreate={
-                selectedEnterprise ? "Update" : "Create New"
-              }
-            />
-          </Box>
-        </DialogContent>
-      </Dialog>
       <Dialog open={openDeleteDialog} onClose={handleCloseDeleteModal}>
         <DialogTitle
           sx={{
@@ -262,7 +138,7 @@ const Enterprise = () => {
             padding: "10px 20px",
           }}
         >
-          Delete Enterprise
+          Delete Individu
         </DialogTitle>
         <DialogContent
           sx={{
@@ -275,11 +151,11 @@ const Enterprise = () => {
         >
           <Box m="20px">
           <Typography>
-                Are you sure you want to delete this Enterprise?
+                Are you sure you want to delete this individu?
             </Typography>
             <Box display="flex" justifyContent="end" mt="20px">
             <Button
-                onClick={() => handleDelete(selectedEnterprise.id)}
+                onClick={() => handleDelete(selectedIndividu.id)}
                 sx={{
                   backgroundColor: colors.redAccent[500],
                   color: colors.grey[100],
@@ -310,4 +186,4 @@ const Enterprise = () => {
   );
 };
 
-export default Enterprise;
+export default Individu;

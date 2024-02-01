@@ -40,4 +40,7 @@ public class FormationService {
 		 List<Formation> formations = formationRep.findByDate(date);
 		 return formations;
 	 }
+	 public long countFormations() {
+	        return formationRep.count();
+	    }
 }

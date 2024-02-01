@@ -15,6 +15,7 @@ public class Formateur extends UserInfo{
    String type;
    String skills;
    String remarks;
+   Boolean accepted;
    @ManyToOne
    @JoinColumn(name = "formation_id")
    private Formation formation;

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.manageformation.entities.Individu;
 import com.manageformation.services.IndividuService;
+import com.manageformation.services.MailService;
 
 @RestController
 @RequestMapping("/individu")
@@ -22,10 +23,19 @@ import com.manageformation.services.IndividuService;
 public class IndividuController {
 	@Autowired
     private IndividuService individuService;
+	 @Autowired
+	    MailService emailService;
+
+	 
 	@PostMapping("/registration/{formation_id}")
 	public String addIndividu(@RequestBody Individu individuInfo,@PathVariable int formation_id ) {
-		individuService.registration(individuInfo,formation_id);
-		return "hello";
+		Individu individu=individuService.registration(individuInfo,formation_id);
+		String subject = "Formation : " + individu.getFormation().getName_formation();
+		 String body = "Welcome  " + individu.getFirstName()+" "+individu.getLastName() + ",\n\n"+
+	                "Thank you for registering for the  " + individu.getFormation().getName_formation() + "training,\n\n"+
+	                "We will contact you when the training begins.";
+		emailService.sendMail(individu.getEmail(), subject, body);
+		return "welcome";
 	}
 	
 	@DeleteMapping("/delete/{id}")
@@ -35,8 +45,13 @@ public class IndividuController {
 	}
 	@GetMapping("/all")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public List<Individu> getAllFormations(){
+	public List<Individu> getAllIndividus(){
 		return individuService.getAllIndividus();
+	}
+	@GetMapping("/count")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+	public long countIndividu() {
+	    return individuService.countIndividu();
 	}
 }
 

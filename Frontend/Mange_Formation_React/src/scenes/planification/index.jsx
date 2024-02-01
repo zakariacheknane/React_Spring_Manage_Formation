@@ -32,11 +32,15 @@ const Planification = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedPlanification, setSelectedPlanification] = useState(null);
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-
+  const token = localStorage.getItem("token");
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/planification/all"
+        "http://localhost:8080/planification/all",{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const planifications = response.data;
 
@@ -85,7 +89,11 @@ const Planification = () => {
     try {
       const response = await axios.put(
         "http://localhost:8080/planification/update",
-        values
+        values,{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       fetchData();
       handleCloseModal();
@@ -99,7 +107,13 @@ const Planification = () => {
     console.log("Server :", values);
     try {
       const response = await axios.post(
-        `http://localhost:8080/planification/planify?startDate=${values.startDate}&endDate=${values.endDate}&formationId=${values.formation_id}&formateurId=${values.formateur_id}&entrepriseId=${values.Entreprise_id}&teamId=${values.Team_id}`
+        `http://localhost:8080/planification/planify?startDate=${values.startDate}&endDate=${values.endDate}&formationId=${values.formation_id}&formateurId=${values.formateur_id}&entrepriseId=${values.Entreprise_id}&teamId=${values.Team_id}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       fetchData();
       handleCloseModal();
@@ -108,13 +122,18 @@ const Planification = () => {
       console.error("Error submitting form:", error);
     }
   };
+  
 
   const handleDelete = async (id) => {
     try {
       console.log("Deleting planification with ID:", id);
 
       const response = await axios.delete(
-        `http://localhost:8080/planification/delete/${id}`
+        `http://localhost:8080/planification/delete/${id}`,{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       fetchData();
       handleCloseDeleteModal();

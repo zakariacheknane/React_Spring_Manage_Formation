@@ -28,4 +28,7 @@ public class EnterpriseService {
 		return enterpriseRep.findAll();
 		 
 	}
+	 public long countEnterprises() {
+	        return enterpriseRep.count();
+	    }
 }

@@ -2,7 +2,12 @@ import React from "react";
 import { Formik } from "formik";
 import { Box, TextField, Button, useMediaQuery } from "@mui/material";
 
-const FormationForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
+const FormationForm = ({
+  onSubmit,
+  onClick,
+  initialValues,
+  updateOrcreate,
+}) => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   return (
@@ -16,6 +21,7 @@ const FormationForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
         programme: "",
         city: "",
         category: "",
+        team_seuil: "",
         ...initialValues,
       }}
     >
@@ -79,21 +85,6 @@ const FormationForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
               helperText={touched.programme && errors.programme}
               sx={{ gridColumn: "span 4" }}
             />
-
-            <TextField
-              fullWidth
-              variant="filled"
-              type="text"
-              label="City"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.city}
-              name="city"
-              error={!!touched.city && !!errors.city}
-              helperText={touched.city && errors.city}
-              sx={{ gridColumn: "span 4" }}
-            />
-
             <TextField
               fullWidth
               variant="filled"
@@ -106,6 +97,32 @@ const FormationForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
               error={!!touched.category && !!errors.category}
               helperText={touched.category && errors.category}
               sx={{ gridColumn: "span 4" }}
+            />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="text"
+              label="City"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.city}
+              name="city"
+              error={!!touched.city && !!errors.city}
+              helperText={touched.city && errors.city}
+              sx={{ gridColumn: "span 2" }}
+            />
+            <TextField
+              fullWidth
+              variant="filled"
+              type="number"
+              label="Team Seuil"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              value={values.team_seuil}
+              name="team_seuil"
+              error={!!touched.team_seuil && !!errors.team_seuil}
+              helperText={touched.team_seuil && errors.team_seuil}
+              sx={{ gridColumn: "span 2" }}
             />
 
             <TextField
@@ -139,14 +156,10 @@ const FormationForm = ({ onSubmit, onClick, initialValues,updateOrcreate }) => {
 
           <Box display="flex" justifyContent="end" mt="20px">
             <Button type="submit" color="secondary" variant="contained">
-              {updateOrcreate}  Formation
+              {updateOrcreate} Formation
             </Button>
             <Box ml={2}>
-              <Button
-                onClick={onClick}
-                color="secondary"
-                variant="contained"
-              >
+              <Button onClick={onClick} color="secondary" variant="contained">
                 Cancel
               </Button>
             </Box>
