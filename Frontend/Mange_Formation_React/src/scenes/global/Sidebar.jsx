@@ -109,19 +109,20 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to="/Dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Formation
-            </Typography>
-
+            {!isCollapsed && (
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                Formation
+              </Typography>
+            )}
             <Item
               title="Formation"
               to="/formation"
@@ -130,14 +131,15 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
 
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Formateur
-            </Typography>
-
+            {!isCollapsed && (
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                Formateur
+              </Typography>
+            )}
             <Item
               title="Formateur"
               to="/formateur"
@@ -145,14 +147,15 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Enterprise
-            </Typography>
-
+            {!isCollapsed && (
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                Enterprise
+              </Typography>
+            )}
             <Item
               title="Enterprise"
               to="/enterprise"
@@ -160,13 +163,15 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Planification
-            </Typography>
+            {!isCollapsed && (
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                Planification
+              </Typography>
+            )}
             <Item
               title="Planification"
               to="/planification"
@@ -174,13 +179,15 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Individu
-            </Typography>
+            {!isCollapsed && (
+              <Typography
+                variant="h6"
+                color={colors.grey[300]}
+                sx={{ m: "15px 0 5px 20px" }}
+              >
+                Individu
+              </Typography>
+            )}
             <Item
               title="Individu"
               to="/Individu"

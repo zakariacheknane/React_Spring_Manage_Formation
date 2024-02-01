@@ -46,7 +46,7 @@ export const Login = () => {
   const colors = tokens(theme.palette.mode);
   const handleSubmit = (values) => {
     dispatch(loginUserAction({ data: values }));
-    navigate("/");
+    navigate("/Dashboard");
   };
 
   return (

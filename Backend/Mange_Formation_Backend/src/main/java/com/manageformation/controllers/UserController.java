@@ -63,4 +63,9 @@ public class UserController {
 	public String updatePassword(@PathVariable int id,@PathVariable String password ) {
           return userService.updatePassword(id, password);
 	}
+    @GetMapping("/findByEmail/{email}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT','ROLE_FORMATEUR')")
+	public UserInfo findByEmail( @PathVariable String email ) {
+		return userService.findByEmail(email);
+	}
 }

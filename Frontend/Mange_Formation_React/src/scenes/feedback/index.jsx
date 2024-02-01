@@ -28,7 +28,7 @@ const Feedback = () => {
       .post(`http://localhost:8080/feedback/add/${idFormater}/${idIndividu}`, values)
       .then((response) => {
         console.log("Feedback added successfully:", response.data);
-        navigate("/home");
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error adding feedback:", error);

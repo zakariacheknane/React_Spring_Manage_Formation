@@ -17,6 +17,7 @@ import TopbarHome from "./scenes/global/TopbarHome";
 import TopbarLogin from "./scenes/global/TopbarLogin";
 import ChangePassword from "./scenes/changePassword";
 import Individu from "./scenes/individu";
+import Profile from "./scenes/profile";
 
 
 function App() {
@@ -60,7 +61,7 @@ function App() {
           }
         />
         <Route
-          path="/home"
+          path="/"
           element={
             <ThemeProvider theme={theme}>
             <ColorModeContext.Provider value={colorMode}>
@@ -121,12 +122,13 @@ function App() {
                     <main className="content">
                       <Topbar />
                       <Routes>
-                        <Route path="/" element={<Dashboard />} />
+                        <Route path="/Dashboard" element={<Dashboard />} />
                         <Route path="/formation" element={<Formation />} />
                         <Route path="/formateur" element={<Formateur />} />
                         <Route path="/enterprise" element={<Enterprise />} />
                         <Route path="/planification" element={<Planification />} />
                         <Route path="/individu" element={<Individu />} />
+                        <Route path="/profil" element={<Profile/>} />
                       </Routes>
                     </main>
                   </div>

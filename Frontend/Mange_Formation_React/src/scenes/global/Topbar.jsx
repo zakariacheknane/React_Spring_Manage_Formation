@@ -37,6 +37,9 @@ const Topbar = () => {
     navigate("/login");
     handleCloseMenu();
   };
+  const handleProfile = () => {
+    navigate("/profil");
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -46,10 +49,8 @@ const Topbar = () => {
         backgroundColor={colors.primary[400]}
         borderRadius="3px"
       >
-        <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
-        <IconButton type="button" sx={{ p: 1 }}>
-          <SearchIcon />
-        </IconButton>
+       
+        
       </Box>
       {/* ICONS */}
       <Box display="flex">
@@ -60,11 +61,11 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon />
+        <IconButton onClick={handleProfile}>
+          <PersonOutlinedIcon />
         </IconButton>
         <IconButton onClick={handleOpenMenu}>
-          <PersonOutlinedIcon />
+          <SettingsOutlinedIcon />
         </IconButton>
         {/* Dropdown Menu */}
         <Menu

@@ -1,7 +1,5 @@
 package com.manageformation.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,9 +20,7 @@ public class Feedback {
 	private Integer coursTp;
 	private Integer maitrise;
 	@ManyToOne
-	@JsonIgnore
 	private Individu individu;
 	@ManyToOne
-	@JsonIgnore
 	private Formateur formateur;
 	}

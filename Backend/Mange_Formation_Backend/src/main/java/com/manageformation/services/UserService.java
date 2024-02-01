@@ -6,7 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.manageformation.entities.Formateur;
+
 import com.manageformation.entities.UserInfo;
 import com.manageformation.repositories.UserInfoRepository;
 import jakarta.annotation.PostConstruct;
@@ -65,4 +65,9 @@ public class UserService {
 		userrepository.save(user.get());
 		   return "password changed";
 	}
-}
+	public UserInfo findByEmail(String email ) {
+		Optional<UserInfo> user=userrepository.findByEmail(email);
+		return user.get();
+	}
+	}
+
