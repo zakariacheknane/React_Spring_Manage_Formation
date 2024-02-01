@@ -14,6 +14,8 @@ import Planification from "./scenes/planification";
 import Home from "./scenes/home";
 import Feedback from "./scenes/feedback";
 import TopbarHome from "./scenes/global/TopbarHome";
+import TopbarLogin from "./scenes/global/TopbarLogin";
+import ChangePassword from "./scenes/changePassword";
 
 
 function App() {
@@ -32,7 +34,7 @@ function App() {
               <CssBaseline />
             <div className="app">
               <main className="content">
-              <TopbarHome />
+              <TopbarLogin />
                 <Login />
               </main>
             </div>
@@ -75,11 +77,33 @@ function App() {
         <Route
           path="/reset-password"
           element={
+            <ThemeProvider theme={theme}>
+            <ColorModeContext.Provider value={colorMode}>
+              <CssBaseline />
             <div className="app">
               <main className="content">
+              <TopbarHome />
                 <ForgotPassword />
               </main>
             </div>
+            </ColorModeContext.Provider>
+             </ThemeProvider>
+          }
+        />
+           <Route
+          path="/resetyourpassword"
+          element={
+            <ThemeProvider theme={theme}>
+            <ColorModeContext.Provider value={colorMode}>
+              <CssBaseline />
+            <div className="app">
+              <main className="content">
+              <TopbarHome />
+                <ChangePassword />
+              </main>
+            </div>
+            </ColorModeContext.Provider>
+             </ThemeProvider>
           }
         />
         

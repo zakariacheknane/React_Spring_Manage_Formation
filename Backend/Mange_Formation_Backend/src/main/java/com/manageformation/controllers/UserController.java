@@ -1,6 +1,7 @@
 package com.manageformation.controllers;
 
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,4 +55,12 @@ public class UserController {
     public String addNewAssitant(@RequestBody UserInfo userInfo) {
         return userService.addAssitant(userInfo);
     } 
+    @GetMapping("/sendPasswordResetEmail/{email}")
+    public String sendPasswordResetEmail(@PathVariable String email) {
+    	return userService.sendPasswordResetEmail(email);
+    } 
+    @PutMapping("/updatePassword/{id}/{password}")
+	public String updatePassword(@PathVariable int id,@PathVariable String password ) {
+          return userService.updatePassword(id, password);
+	}
 }

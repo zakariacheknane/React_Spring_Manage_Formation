@@ -12,28 +12,19 @@ import {
   Stack,
 } from "@mui/material";
 import Sousbg from "../../Assets/sousbg.png";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { loginUserAction } from "../../Auth/auth.action";
+import { useTheme } from "@emotion/react";
+import { tokens } from "../../theme";
 
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
 });
-
-const boxstyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%,-50%)",
-  width: "75%",
-  height: "70%",
-  backgroundColor: "#ffffff",
-  boxShadow: 24,
-};
 
 const center = {
   position: "relative",
@@ -51,34 +42,36 @@ const validationSchema = Yup.object({
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const handleSubmit = (values) => {
     dispatch(loginUserAction({ data: values }));
     navigate("/");
   };
 
-  
-
   return (
-    <div
-      style={{
-        backgroundColor: "#ffffff",
-        backgroundSize: "cover",
-        height: "100vh",
-        color: "#f5f5f5",
-      }}
-    >
+    <div>
       <ThemeProvider theme={darkTheme}>
-        <Box sx={boxstyle}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)",
+            width: "75%",
+            height: "70%",
+            backgroundColor: colors.primary[500],
+            boxShadow: 24,
+          }}
+        >
           <Grid container>
             <Grid item xs={12} sm={12} lg={6}>
               <Box
                 style={{
                   backgroundImage: `url(${Sousbg})`,
                   backgroundSize: "cover",
-                  marginTop: "40px",
                   marginLeft: "15px",
-                  marginRight: "15px",
-                  height: "63vh",
+                  height: "100%",
                   color: "#f5f5f5",
                 }}
               ></Box>
@@ -88,8 +81,8 @@ export const Login = () => {
                 style={{
                   backgroundSize: "cover",
                   minHeight: "510px",
-                  height: "63vh",
-                  backgroundColor: "#3b33d5",
+                  height: "100%",
+                  backgroundColor: colors.primary[500],
                 }}
               >
                 <Container>
@@ -115,7 +108,7 @@ export const Login = () => {
                           <Field
                             as={TextField}
                             fullWidth
-                            name="username"  // Fix: Change "username" to "email"
+                            name="username" // Fix: Change "username" to "email"
                             placeholder="Email *"
                             type="email"
                             variant="outlined"
@@ -125,7 +118,7 @@ export const Login = () => {
                             component={"div"}
                             className="text-red-500"
                             style={{
-                            color:"#ff0000"
+                              color: "#ff0000",
                             }}
                           />
                         </Grid>
@@ -143,8 +136,8 @@ export const Login = () => {
                             component={"div"}
                             className="text-red-500"
                             style={{
-                              color:"#ff0000"
-                              }}
+                              color: "#ff0000",
+                            }}
                           />
                         </Grid>
                         <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>

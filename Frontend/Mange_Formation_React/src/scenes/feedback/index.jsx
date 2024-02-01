@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Formik } from "formik";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { tokens } from "../../theme";
@@ -10,7 +9,6 @@ import { useTheme } from "@emotion/react";
 const Feedback = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const isNonMobile = useMediaQuery("(min-width:600px)");
   const [idIndividu, setidIndividu] = useState("");
   const [idFormater, setidFormater] = useState("");
   const location = useLocation();

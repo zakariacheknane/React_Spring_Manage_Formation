@@ -1,4 +1,6 @@
 package com.manageformation.services;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +16,9 @@ public class UserService {
     private UserInfoRepository userrepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    MailService emailService;
+    
     @PostConstruct
     public void initAdmin(){
         UserInfo admin =new UserInfo();
@@ -45,5 +50,19 @@ public class UserService {
 		    	return "Assistent  added succesfuly";	
 		    }
   
-  
+	public String sendPasswordResetEmail(String email ) {
+		Optional<UserInfo> user=userrepository.findByEmail(email);
+		String Subject = "Password Reset";
+		   String  message="Click the link to reset your password: \n\n"
+		   		+ "http://localhost:3000/resetyourpassword?iduser=" + user.get().getId()
+                +"\n\n";
+		   emailService.sendMail(user.get().getEmail(), Subject, message);
+		   return "changedpassword";
+	}
+	public String updatePassword(int id,String password ) {
+		Optional<UserInfo> user=userrepository.findById(id);
+		user.get().setPassword(passwordEncoder.encode(password));;
+		userrepository.save(user.get());
+		   return "password changed";
+	}
 }
