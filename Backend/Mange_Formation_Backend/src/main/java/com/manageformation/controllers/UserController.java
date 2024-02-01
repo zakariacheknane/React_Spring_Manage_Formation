@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.manageformation.config.UserInfoUserDetails;
 import com.manageformation.dto.AuthRequest;
 import com.manageformation.dto.JwtResponse;
+import com.manageformation.entities.Formateur;
 import com.manageformation.entities.UserInfo;
 import com.manageformation.services.JwtService;
 import com.manageformation.services.UserService;

@@ -16,8 +16,10 @@ const Dashboard = () => {
   const [formateurCount, setFormateurCount] = useState(0);
   const [enterpriseCount, setEnterpriseCount] = useState(0);
   const [individuCount, setIndividuCount] = useState(0);
+  const [interestedTrainers, setInterestedTrainers] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
   const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -60,13 +62,25 @@ const Dashboard = () => {
           }
         );
         setIndividuCount(individuResponse.data);
+
+        // Fetch interested trainers who are not accepted
+        const interestedTrainersResponse = await axios.get(
+          "http://localhost:8080/formateur/nonAccepted",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setInterestedTrainers(interestedTrainersResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [token]);
+
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
@@ -76,14 +90,44 @@ const Dashboard = () => {
           },
         });
         const data = await response.json();
-        console.log(data);
         setFeedbacks(data);
       } catch (error) {
         console.error("Error fetching feedbacks:", error);
       }
     };
     fetchFeedbacks();
-  }, []);
+  }, [token]);
+  const handleAcceptTrainer = async (trainer) => {
+    console.log(trainer)
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/formateur/accepteFormateur`,trainer,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (response.status === 200) {
+        const interestedTrainersResponse = await axios.get(
+          "http://localhost:8080/formateur/nonAccepted",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setInterestedTrainers(interestedTrainersResponse.data);
+      } 
+      
+      else {
+        console.error("Failed to accept trainer:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error accepting trainer:", error);
+    }
+  };
   return (
     <Box m="20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -166,25 +210,66 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          overflow="auto"
-        >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
-            colors={colors.grey[100]}
-            p="15px"
-          >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Interested  Trainers
-            </Typography>
-          </Box>
+  gridColumn="span 8"
+  gridRow="span 2"
+  backgroundColor={colors.primary[400]}
+  overflow="auto"
+>
+        <Box
+    display="flex"
+    justifyContent="space-between"
+    alignItems="center"
+    colors={colors.grey[100]}
+    pt="15px"
+    pl="15px"
+  >
+    <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+      Interested Trainers
+    </Typography>
+  </Box>
+  <Box
+    display="flex"
+    justifyContent="space-between"
+    alignItems="center"
+    borderBottom={`4px solid ${colors.primary[500]}`}
+    colors={colors.grey[100]}
+    p="15px"
+  >
+    <Typography color={colors.greenAccent[500]} variant="h6" fontWeight="600">
+      Trainner Name
+    </Typography>
+    <Typography color={colors.greenAccent[500]}>Formation Name</Typography>
+    <Typography color={colors.greenAccent[500]}sx={{ marginRight: '90px' }}>Skills</Typography>
+    <Typography color={colors.greenAccent[500]}></Typography>
+  </Box>
+  {/* Content Section - Interested Trainers */}
+  {interestedTrainers.map((trainer, index) => (
+    <Box
+      key={index}
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      borderBottom={`4px solid ${colors.primary[500]}`}
+      p="15px"
+    >
+      <Typography color={colors.grey[100]} variant="h6" fontWeight="600">
+        {trainer.firstname} {trainer.lastname}
+      </Typography>
+      <Typography color={colors.grey[100]}>{trainer.formation.name_formation}</Typography>
+      <Typography color={colors.grey[100]}sx={{ marginLeft: '20px' }}>{trainer.skills}</Typography>
+      <Box
+        backgroundColor={colors.greenAccent[500]}
+        p="5px 10px"
+        borderRadius="4px"
+        onClick={() => handleAcceptTrainer(trainer)}
+        style={{ cursor: 'pointer' }}
+      >
+        Accept
+      </Box>
+    </Box>
+  ))}
 
-        </Box>
+</Box>
         <Box
           gridColumn="span 4 "
           gridRow="span 2"
@@ -218,7 +303,6 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {" "}
                   {`Qualite: ${feedback.qualite}, Rythme: ${feedback.rythme}, CoursTp: ${feedback.coursTp}, Maitrise: ${feedback.maitrise}`}
                 </Typography>
                 <Typography color={colors.grey[100]}>

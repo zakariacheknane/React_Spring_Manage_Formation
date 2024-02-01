@@ -51,4 +51,15 @@ public class FormateurController {
 	public Long countFormateurs(){
 		return formateurservice.countFormateurs();
 	}
+	  @GetMapping("/nonAccepted")
+	 @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+	  public List<Formateur> findNonAcceptedFormateurs() {
+	        return formateurservice.findNonAcceptedFormateurs();
+	    }
+	    @PutMapping("/accepteFormateur")
+	    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+	    public String AcceptFormateurAndSendEmail(@RequestBody Formateur formateur) {
+	    	
+	        return formateurservice.AcceptFormateurAndSendEmail(formateur);
+	    }
 }
