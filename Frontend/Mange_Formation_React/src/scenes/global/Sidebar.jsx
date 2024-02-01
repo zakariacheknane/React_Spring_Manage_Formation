@@ -8,8 +8,10 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import BusinessIcon from '@mui/icons-material/Business';
+import BusinessIcon from "@mui/icons-material/Business";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import { useUserContext } from "../../Context/UserContext";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -27,11 +29,15 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
     </MenuItem>
   );
 };
-const Sidebar = () => {
+const Sidebar = ({primary,second,img}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const { isUserAdmin, isUserAssistent,isUserFormateur} = useUserContext();
+  const isAdmin = isUserAdmin();
+  const isAssistent = isUserAssistent();
+  const isFormateur=isUserFormateur();
   return (
     <Box
       sx={{
@@ -71,7 +77,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                 {primary}
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -86,7 +92,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={img}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -97,10 +103,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Admin
+                  {second}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Admin Formation
+                {second} Formation
                 </Typography>
               </Box>
             </Box>
@@ -108,72 +114,111 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to="/Dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Formation
-            </Typography>
-
-            <Item
-              title="Formation"
-              to="/formation"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Formateur
-            </Typography>
-
-            <Item
-              title="Formateur"
-              to="/formateur"
-              icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Enterprise
-            </Typography>
-          
-        
-            <Item
-              title="Enterprise"
-              to="/enterprise"
-              icon={<BusinessIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-                  <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Planification
-            </Typography>
-       <Item
-              title="Planification"
-              to="/planification"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+{isAdmin || isAssistent ? (
+  !isCollapsed && (
+    <Typography
+      variant="h6"
+      color={colors.grey[300]}
+      sx={{ m: "15px 0 5px 20px" }}
+    >
+      Formation
+    </Typography>
+  )
+) : null}
+{isAdmin || isAssistent ? (
+  <Item
+    title="Formation"
+    to="/formation"
+    icon={<ReceiptOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+) : null}
+{isAdmin || isAssistent ? (
+  !isCollapsed && (
+    <Typography
+      variant="h6"
+      color={colors.grey[300]}
+      sx={{ m: "15px 0 5px 20px" }}
+    >
+      Formateur
+    </Typography>
+  )
+) : null}
+{isAdmin || isAssistent ? (
+  <Item
+    title="Formateur"
+    to="/formateur"
+    icon={<ContactsOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+) : null}
+{isAdmin || isAssistent ? (
+  !isCollapsed && (
+    <Typography
+      variant="h6"
+      color={colors.grey[300]}
+      sx={{ m: "15px 0 5px 20px" }}
+    >
+      Enterprise
+    </Typography>
+  )
+) : null}
+{isAdmin || isAssistent ? (
+  <Item
+    title="Enterprise"
+    to="/enterprise"
+    icon={<BusinessIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+) : null}
+{isAdmin || isAssistent ? (
+  !isCollapsed && (
+    <Typography
+      variant="h6"
+      color={colors.grey[300]}
+      sx={{ m: "15px 0 5px 20px" }}
+    >
+      Planification
+    </Typography>
+  )
+) : null}
+{isAdmin || isAssistent ? (
+  <Item
+    title="Planification"
+    to="/planification"
+    icon={<CalendarTodayOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+) : null}
+{isAdmin || isAssistent ? (
+  !isCollapsed && (
+    <Typography
+      variant="h6"
+      color={colors.grey[300]}
+      sx={{ m: "15px 0 5px 20px" }}
+    >
+      Individu
+    </Typography>
+  )
+) : null}
+{isAdmin || isAssistent ? (
+  <Item
+    title="Individu"
+    to="/Individu"
+    icon={<PeopleOutlinedIcon />}
+    selected={selected}
+    setSelected={setSelected}
+  />
+) : null}
           </Box>
         </Menu>
       </ProSidebar>

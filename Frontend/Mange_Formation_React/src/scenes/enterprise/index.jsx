@@ -32,7 +32,6 @@ const Enterprise = () => {
       const response = await axios.get("http://localhost:8080/enterprise/all", {
         headers: {
           Authorization: `Bearer ${token}`,
-         
         },
       });
       setRows(response.data);
@@ -49,10 +48,7 @@ const Enterprise = () => {
     try {
       console.log("Submitting form with values:", values);
 
-      const response = await axios.post(
-        "http://localhost:8080/enterprise/add",
-        values,
-        {
+      const response = await axios.post("http://localhost:8080/enterprise/add",values,{
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type':'application/json',

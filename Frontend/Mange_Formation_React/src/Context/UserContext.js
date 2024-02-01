@@ -15,10 +15,15 @@ export const UserProvider = ({ children }) => {
     const storedData = localStorage.getItem("role");
     return storedData  && storedData.includes("ROLE_ASSISTENT");
   };
+  const isUserFormateur = () => {
+    const storedData = localStorage.getItem("role");
+    return storedData  && storedData.includes("ROLE_FORMATEUR");
+  };
 
   const contextValue = {
     isUserAdmin,
     isUserAssistent,
+    isUserFormateur
   };
 
   return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;

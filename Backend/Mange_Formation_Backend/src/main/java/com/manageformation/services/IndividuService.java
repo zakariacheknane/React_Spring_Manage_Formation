@@ -54,4 +54,11 @@ public class IndividuService {
 	        newTeam.setFormation(formation);
 	        return teamRepository.save(newTeam);
 	    }
+	    public long countIndividu() {
+	        return individuRepository.count();
+	    }
+		public List<Individu> findbyTeam(int teamid){
+			 Optional<Team> team = teamRepository.findById(teamid);
+			return individuRepository.findByTeam(team.get()); 
+		}
 }

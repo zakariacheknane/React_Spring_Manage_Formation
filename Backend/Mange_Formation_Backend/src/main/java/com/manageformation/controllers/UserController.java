@@ -1,6 +1,7 @@
 package com.manageformation.controllers;
 
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import com.manageformation.config.UserInfoUserDetails;
 import com.manageformation.dto.AuthRequest;
 import com.manageformation.dto.JwtResponse;
+import com.manageformation.entities.Formateur;
+import com.manageformation.entities.UserInfo;
 import com.manageformation.services.JwtService;
+import com.manageformation.services.UserService;
 
 
 
@@ -28,7 +32,9 @@ public class UserController {
     private JwtService jwtService;
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    @Autowired
+    private UserService userService;
+    
     @PostMapping("/authenticate")
     public ResponseEntity<?>authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
@@ -45,4 +51,22 @@ public class UserController {
             throw new UsernameNotFoundException("invalid user request !");
         }
     }
+    @PostMapping("/newAssistant")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public String addNewAssitant(@RequestBody UserInfo userInfo) {
+        return userService.addAssitant(userInfo);
+    } 
+    @GetMapping("/sendPasswordResetEmail/{email}")
+    public String sendPasswordResetEmail(@PathVariable String email) {
+    	return userService.sendPasswordResetEmail(email);
+    } 
+    @PutMapping("/updatePassword/{id}/{password}")
+	public String updatePassword(@PathVariable int id,@PathVariable String password ) {
+          return userService.updatePassword(id, password);
+	}
+    @GetMapping("/findByEmail/{email}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT','ROLE_FORMATEUR')")
+	public UserInfo findByEmail( @PathVariable String email ) {
+		return userService.findByEmail(email);
+	}
 }

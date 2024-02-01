@@ -28,17 +28,19 @@ public class PlanificationController {
 	@Autowired
     private PlanificationService planificationService;
 	@GetMapping("/all")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public List<Planification> getAllPlanifications() {
 	   return planificationService.getAllPlanifications();
 	  }
 	@PostMapping("/planify")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public ResponseEntity<String> planifyFormation(
 	    @RequestParam LocalDate startDate,
 	    @RequestParam LocalDate endDate,
 	    @RequestParam int formationId,
 	    @RequestParam int formateurId,
-	    @RequestParam int entrepriseId,
-	    @RequestParam int teamId
+	    @RequestParam String entrepriseId,
+	    @RequestParam String teamId
 	) {
 	    try {
 	        Planification plannedFormation = planificationService.planifyFormation(startDate, endDate, formationId, formateurId, entrepriseId,teamId);
@@ -68,4 +70,10 @@ public class PlanificationController {
 	            return new ResponseEntity<>("Error deleting formation", HttpStatus.INTERNAL_SERVER_ERROR);
 	        }
 	    }
+	    @GetMapping("/deleteEndPlanification")
+	    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+	    public String deleteFormationEnd() {
+	    	return planificationService.deletePlanificationEnd();
+	    }   
+
 	}

@@ -24,21 +24,47 @@ public class FormateurController {
     private FormateurService formateurservice;
 	@PostMapping("/newFormateurIntern")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String addNewFormateur(@RequestBody Formateur formateurInfo) {
+    public String addNewFormateurIntern(@RequestBody Formateur formateurInfo) {
         return formateurservice.addFormateurIntern(formateurInfo);
     }
 	@PutMapping("/update")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT','ROLE_FORMATEUR')")
 	public Formateur updateFormateur(@RequestBody Formateur formateurInfo) {
 		return formateurservice.updateFormateur(formateurInfo);
 	}
 	@DeleteMapping("/delete/{id}")
-	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	 @PreAuthorize("hasAuthority('ROLE_ADMIN','ROLE_FORMATEUR')")
 	public String deleteFormateur(@PathVariable int id) {
 	 return formateurservice.deleteFormateurById(id);
 	}
 	@GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public List<Formateur> getAllFormateurs(){
 		return formateurservice.getAllFormateurs();
 	}
+	@PostMapping("/newFormateurExtern/{formation_id}")
+    public String addNewFormateurExtern(@RequestBody Formateur formateurInfo,@PathVariable int formation_id) {
+        return formateurservice.addFormateurExtern(formateurInfo,formation_id);
+    }
+	@GetMapping("/count")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+	public Long countFormateurs(){
+		return formateurservice.countFormateurs();
+	}
+	  @GetMapping("/nonAccepted")
+	 @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+	  public List<Formateur> findNonAcceptedFormateurs() {
+	        return formateurservice.findNonAcceptedFormateurs();
+	    }
+	    @PutMapping("/accepteFormateur")
+	    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
+	    public String AcceptFormateurAndSendEmail(@RequestBody Formateur formateur) {
+	    	
+	        return formateurservice.AcceptFormateurAndSendEmail(formateur);
+	    }
+		@GetMapping("/findByEmail/{email}")
+	    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT','ROLE_FORMATEUR')")
+		public Formateur findByEmail(@PathVariable String email){
+			return formateurservice.findbyEmail(email);
+		}
 }
