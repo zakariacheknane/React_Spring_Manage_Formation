@@ -264,7 +264,7 @@ const Home = () => {
   color="primary"
   sx={{
     '& .Mui-selected': {
-      backgroundColor: colors.primary[300],
+      backgroundColor: colors.primary[200],
       color: '#ffffff',
     },
   }}

@@ -23,7 +23,7 @@ public class FeedbackController {
 	private FeedbackService fs;
 	
     @GetMapping("/all")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
     public List<Feedback>findAll(){
     	return fs.getAllFeedbacks();
     }
@@ -32,7 +32,7 @@ public class FeedbackController {
         return fs.addFeedback(feedback,formateur_id,individu_id);
     }
     @GetMapping("/formateur/{id}")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
     public List<Feedback>getByFormateurId(@PathVariable int id){
     	return fs.getByFormateurId(id);
     }

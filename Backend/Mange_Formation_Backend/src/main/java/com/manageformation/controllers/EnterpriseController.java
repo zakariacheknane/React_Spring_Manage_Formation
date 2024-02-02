@@ -26,7 +26,7 @@ public class EnterpriseController {
 	private EnterpriseService enterpriseService;
 	
 	@GetMapping("/all")
-	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTANT')")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public List<Enterprise> getAllEnterprise(){
 		return enterpriseService.getAllEnterprises();
 	}

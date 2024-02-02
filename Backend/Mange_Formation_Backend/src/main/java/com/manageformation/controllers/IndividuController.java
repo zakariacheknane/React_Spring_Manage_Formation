@@ -39,12 +39,12 @@ public class IndividuController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	 @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public String deleteFormation(@PathVariable int id) {
 	 return individuService.deleteIndividu(id);
 	}
 	@GetMapping("/all")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_ASSISTENT')")
 	public List<Individu> getAllIndividus(){
 		return individuService.getAllIndividus();
 	}
